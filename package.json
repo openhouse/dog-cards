@@ -1,0 +1,16 @@
+{
+  "name": "dog-cards",
+  "version": "0.0.1",
+  "description": "A game to help you find your new best friend!",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "keywords": [
+    "dogs",
+    "game",
+    "breeds"
+  ],
+  "author": "@openhouse",
+  "license": "ISC"
+}
