@@ -12,10 +12,15 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "clear": "0.0.1",
+    "connect-livereload": "^0.5.4",
+    "gls": "0.0.2",
     "gulp": "^3.9.1",
+    "gulp-live-server": "0.0.30",
+    "gulp-livereload": "^3.8.1",
     "gulp-mocha": "^2.2.0",
     "mocha": "^2.5.3",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "tiny-lr": "^0.2.1"
   },
   "scripts": {
     "test": "gulp test",

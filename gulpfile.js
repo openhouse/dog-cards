@@ -1,15 +1,11 @@
 let gulp = require('gulp');
 let mocha = require('gulp-mocha');
-
 let runSequence = require('run-sequence');
-
 let clear = require('clear');
+let livereload = require('gulp-livereload');
+var app;
 
 const { log } = console;
-
-gulp.task('default', function () {
-  return runSequence('test');
-});
 
 gulp.task('test', function () {
   // start watcher then compile and run tests
@@ -26,4 +22,21 @@ gulp.task('runTests', function () {
     })).on('error', function (err) {
       // log(err);
     });
+});
+
+gulp.task('default', ['express', 'watch'], function () {
+});
+
+gulp.task('express', function () {
+  app = require('./bin/www');
+});
+
+gulp.task('watch', function () {
+  livereload.listen();
+  gulp.watch('./**/*')
+  .on('change', function (file) {
+    gulp
+      .src(file.path)
+      .pipe(livereload());
+  });
 });
