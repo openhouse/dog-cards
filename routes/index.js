@@ -14,8 +14,7 @@ router.get('/', function (req, res, next) {
   // scrape the wikipedia table of dog breeds
   scraper.get('https://en.wikipedia.org/wiki/List_of_dog_breeds')
     .then(function (tables) {
-      let rows = tables[0];
-
+      let rows = tables[1];
       // Process html like you would with jQuery...
       res.render('index', {
         rows: rows,

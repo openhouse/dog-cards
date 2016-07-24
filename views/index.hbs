@@ -3,5 +3,15 @@
 
 {{#each rows}}
   <h1>{{this.Breed}}</h1>
-  <p>{{this.Origin}}</p>
+  <h4>{{this.Origin}}</h4>
+  <dl>
+  {{#each this}}
+    {{#if this}}
+      {{#compare @key "!==" "Breed"}}
+        <dt>{{@key}}</dt> <dd>{{this}}</dd>
+      {{/compare}}
+
+    {{/if}}
+  {{/each}}
+  </dl>
 {{/each}}

@@ -14,6 +14,10 @@ app.use(require('connect-livereload')());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+let hbs = require('hbs');
+let helpers = require('handlebars-helpers')({
+  handlebars: hbs,
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
