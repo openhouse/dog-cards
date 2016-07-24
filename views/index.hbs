@@ -1,3 +1,7 @@
 <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-Hi
+<p>Welcome to {{result}}</p>
+
+{{#each rows}}
+  <h1>{{this.Breed}}</h1>
+  <p>{{this.Origin}}</p>
+{{/each}}
