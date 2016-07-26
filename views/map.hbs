@@ -1,12 +1,33 @@
 MAP
 
+
+
+{{#each breeds}}
+  <dl>
+    <dt style="color: #d0d0d0;">{{this.breed}}:</dt>
+    <dd>
+      <pre>{{stringify this.weight 2}}</pre>
+    </dd>
+  </dl>
+{{/each}}
+
+<pre>
+  <h3>raw</h3>
+  {{#withFirst raw}}
+    {{stringify this 2}}
+  {{/withFirst}}
+</pre>
+
+
+{{!--
 {{#each breeds}}
   <dl>
     <dt style="color: #d0d0d0;">{{this.breed}}:</dt>
     <dd>{{this.groups.text}}</dd>
   </dl>
-
 {{/each}}
+--}}
+
 {{!--
 <pre>
 

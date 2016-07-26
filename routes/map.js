@@ -19,6 +19,7 @@ couchDb.update = function (obj, key, callback) {
 let { log } = console;
 
 const getBreedGroups = require('./helpers/get-breed-groups.js');
+const getBreedWeight = require('./helpers/get-breed-weight.js');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -32,9 +33,10 @@ router.get('/', function (req, res, next) {
         let breed = {};
         breed.breed = doc.table.BreedName;
         breed.title = doc.table.Breed;
-        // breed.text = doc.wtf.text;
+        breed.text = doc.wtf.text;
         breed.summary = doc.wiki.summary;
         breed.groups = getBreedGroups(doc.wtf, doc.wiki, doc.table);
+        breed.weight = getBreedWeight(doc.wtf, doc.wiki, doc.table);
         // log(breed);
 
         breeds.push(breed);
