@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var breeds = require('./routes/breeds');
+var capture = require('./routes/capture');
+var map = require('./routes/map');
 
 var app = express();
 app.use(require('connect-livereload')());
@@ -18,6 +21,13 @@ let hbs = require('hbs');
 let helpers = require('handlebars-helpers')({
   handlebars: hbs,
 });
+hbs.registerHelper('breaklines', function (text) {
+  text = hbs.Utils.escapeExpression(text);
+  text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
+  return new hbs.SafeString(text);
+});
+
+hbs.registerPartial('list', require('./views/partials/list.hbs'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -35,6 +45,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/breeds', breeds);
+app.use('/capture', capture);
+app.use('/map', map);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

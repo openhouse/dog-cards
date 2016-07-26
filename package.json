@@ -10,6 +10,7 @@
   ],
   "author": "@openhouse",
   "devDependencies": {
+    "bluebird": "^3.4.1",
     "chai": "^3.5.0",
     "cheerio": "^0.20.0",
     "clear": "0.0.1",
@@ -21,13 +22,15 @@
     "gulp-mocha": "^2.2.0",
     "mocha": "^2.5.3",
     "run-sequence": "^1.2.2",
-    "tiny-lr": "^0.2.1"
+    "tiny-lr": "^0.2.1",
+    "wikijs": "^1.1.0"
   },
   "scripts": {
     "test": "gulp test",
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bluebird": "^3.4.1",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",

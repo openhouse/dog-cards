@@ -3,7 +3,7 @@ let mocha = require('gulp-mocha');
 let runSequence = require('run-sequence');
 let clear = require('clear');
 var gls = require('gulp-live-server');
-
+let timeout = false;
 // let livereload = require('gulp-livereload');
 var app;
 
@@ -31,20 +31,28 @@ gulp.task('serve', function () {
   server.start();
 
   gulp.watch(['views/**/*', 'public/**/*'], function (args) {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
     server.notify.apply(server, [args]);
   });
 
-  gulp.watch(['bin/www', 'app.js', 'routes/**/*'], function (args) {
+  gulp.watch(['routes/**/*'], function (args) {
     server.start.apply(server).progress(function (progress) {
       log('started');
       log(progress);
       server.notify.apply(server, [args]);
     });
 
-    setTimeout(function () {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    timeout = setTimeout(function () {
       console.log('woo!');
       server.notify.apply(server, [args]);
-    }, 2000);
+    }, 10000);
   });
 
 });

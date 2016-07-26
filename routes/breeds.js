@@ -11,8 +11,11 @@ const wiki = require('wikijs').default;
 
 const { log } = console;
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  var scraper = require('table-scraper');
+router.get(['/', '/*'], function (req, res, next) {
+  log(req.path.split('/')[1]);
+  let pageName = decodeURIComponent(req.path.split('/')[1]);
+
+  let scraper = require('table-scraper');
 
   // scrape the wikipedia HTML TABLE of dog breeds
   // works but doesn't get images
@@ -41,7 +44,6 @@ router.get('/', function (req, res, next) {
   let pageName = 'Affenpinscher';
 
   */
-  let pageName = 'Bernese Mountain Dog';
 
   function bestImage(wtf, wikiJS) {
     /*
@@ -51,7 +53,7 @@ router.get('/', function (req, res, next) {
     if (wtf.infobox.image) {
       let name = wtf.infobox.image.text;
       let images = wtf.images;
-      for (var i = 0, len = images.length; i < len; i++) {
+      for (let i = 0, len = images.length; i < len; i++) {
         if (name === images[i].file || 'File:'  + name === images[i].file) {
           return images[i];
         }
@@ -92,25 +94,37 @@ router.get('/', function (req, res, next) {
 
   }
 
+  function sluggify(str) {
+    let result = str.toLowerCase().replace(/\s/g, '');
+    if (result.slice(-1) === 's') {
+      result =  result.substring(0, result.length - 1);
+    }
+
+    return result;
+  }
+
   function getGroups(wtf, wikiJS) {
     let groups = {};
     for (let key in wtf.infobox) {
       let value = wtf.infobox[key];
       if (key.endsWith('group')) {
         if (!hasNumber(value.text)) {
-          if (!groups[value.text]) {
-            groups[value.text] = {
+          let slug = sluggify(value.text);
+
+          if (!groups.hasOwnProperty(slug)) {
+            groups[slug] = {
               text: value.text,
               count: 1,
               isUKC: false,
+              slug: slug,
             };
           }
 
           if (key === 'ukcgroup') {
-            groups[value.text].isUKC = true;
+            groups[slug].isUKC = true;
           }
 
-          groups[value.text].count++;
+          groups[slug].count++;
         }
       }
     }
@@ -136,11 +150,9 @@ router.get('/', function (req, res, next) {
     wiki().page(pageName).then(function (page) {
       let wikiProms = [];
       let wikiResults = {};
-      log('page');
       for (let propertyName in page) {
         if (typeof page[propertyName] === 'function') {
           let x = page[propertyName]().catch(function (e) {
-            log(e);
           });
 
           wikiProms[propertyName] = x;
@@ -149,14 +161,12 @@ router.get('/', function (req, res, next) {
         }
       }
 
-      log(wikiProms);
       Promise.props(wikiProms).then(function (all) {
-        log('all the files were created');
         for (let propertyName in all) {
           wikiResults[propertyName] = all[propertyName];
         }
 
-        res.render('index', {
+        res.render('breeds', {
           wikiJS: wikiResults,
           wikiJSON: JSON.stringify(wikiResults, null, 2),
           wtf: wtfResult,
@@ -169,37 +179,6 @@ router.get('/', function (req, res, next) {
 
   });
 
-  /*
-      .then(page => page.info('alter_ego'))
-      .then(console.log); // Bruce Wayne
-  */
-
-  /*
-  var options = {
-      uri: 'https://en.wikipedia.org/wiki/List_of_dog_breeds',
-      transform: function (body) {
-          return cheerio.load(body);
-        },
-    };
-
-  rp(options)
-    .then(function ($) {
-      let wikiHTML = $('.wikitable').html();
-      let tables = tabletojson.convert(wikiHTML);
-      log(tables);
-
-      // Process html like you would with jQuery...
-      res.send(tables);
-    })
-    .catch(function (err) {
-      // Crawling failed or Cheerio choked...
-    });
-    */
-
-  /*
-
-
-  */
 });
 
 module.exports = router;
