@@ -1,0 +1,29 @@
+MAP
+
+{{#each breeds}}
+  <dl>
+    <dt style="color: #d0d0d0;">{{this.breed}}:</dt>
+    <dd>{{this.groups.text}}</dd>
+  </dl>
+
+{{/each}}
+{{!--
+<pre>
+
+
+  <h3>First</h3>
+  {{#withFirst breeds}}
+{{stringify this 2}}
+  {{/withFirst}}
+
+  <h3>Last</h3>
+  {{#withLast breeds}}
+{{stringify this 2}}
+  {{/withLast}}
+
+  <h3>raw</h3>
+  {{#withLast raw}}
+{{stringify this 2}}
+  {{/withLast}}
+</pre>
+--}}

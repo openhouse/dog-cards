@@ -1,0 +1,75 @@
+{{#each rows}}
+  <h1>{{this.Breed}}</h1>
+  <h4>{{this.Origin}}</h4>
+  <dl>
+  {{#each this}}
+    {{#if this}}
+      {{#compare @key "!==" "Breed"}}
+        <dt>{{@key}}</dt> <dd>{{this}}</dd>
+      {{/compare}}
+
+    {{/if}}
+  {{/each}}
+  </dl>
+{{/each}}
+<div>
+  <h1>{{wikiJS.raw.title}}</h1>
+  <img src="{{bestImage.url}}" class="image--best"/>
+  <img src="{{last wikiJS.images}}" class="image--back"/>
+  <p>
+    <ul class="taglist">
+      {{#each groups}}
+        <li>{{this.text}} ({{this.slug}})</li>
+      {{/each}}
+    </ul>
+  </p>
+  <p>{{breaklines wikiJS.summary}}</p>
+  <br/>
+  <hr/>
+</div>
+<br/>
+
+<h1>wtf_wikipedia</h1>
+<h2>Images</h2>
+
+{{#each wtf.images}}
+  <img src="{{this.url}}"/>
+{{/each}}
+
+<h2>JSON</h2>
+<pre>
+  {{wtfJSON}}
+</pre>
+
+<h1>wikiJS</h1>
+<h2>Images</h2>
+{{#each wikiJS.images}}
+  <img src="{{this}}"/>
+{{/each}}
+<h2>JSON</h2>
+
+<pre>
+  {{wikiJSON}}
+</pre>
+{{!--
+{{#each wtf}}
+  <dl>
+  {{#each this}}
+    {{#if this}}
+      <dt>{{@key}}</dt>
+    {{/if}}
+  {{/each}}
+  </dl>
+{{/each}}
+
+
+{{#each wtf.images}}
+  <dl>
+  {{#each this}}
+    {{#if this}}
+      <dt>{{@key}}</dt> <dd>{{this}}</dd>
+    {{/if}}
+  {{/each}}
+  </dl>
+{{/each}}
+--}}

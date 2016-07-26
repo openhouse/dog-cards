@@ -1,0 +1,19 @@
+<html>
+  <head>
+  </head>
+  <body>
+    {{#if data.table.Breed}}
+      <h1>{{data.table.BreedName}}</h1>
+      <img src="{{{data.table.Image.url}}}"/>
+      <pre>
+        {{wikiTableJSON}}
+      </pre>
+      <script>
+        // window.location.assign('{{{meta.next}}}');
+      </script>
+
+    {{else}}
+    <h1>Done!</h1>
+    {{/if}}
+  </body>
+</html>
