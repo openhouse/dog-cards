@@ -11,7 +11,7 @@ module.exports = function getBreedWeight(wtf, wiki, table) {
   };
   let input = {};
 
-  let result = {};
+  let result = false;
 
   // get the best from wtf and wiki
   if (wtf.infobox.weight) {
@@ -113,7 +113,7 @@ module.exports = function getBreedWeight(wtf, wiki, table) {
   delete debug.wiki;
 
   return {
-    result: result,
+    weight: result,
     // input: input,
     debug: debug,
   };

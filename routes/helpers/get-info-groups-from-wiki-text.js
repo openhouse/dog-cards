@@ -1,18 +1,20 @@
 let hasNumber = require('./has-number.js');
 let multiWords = require('./multi-words.js');
-const wUnits = ['lb', 'kg'];
 const conversions = {
   lb: 1,
-  kg: 2.20462,
+  kg: 2.20462262185,
+  in: 1,
+  cm: 0.3937007874,
 };
+const units = Object.keys(conversions);
 
 module.exports = function (joined) {
 
-  let elements = joined.match(/\{.*?\}/g);
+  let elements = joined.match(/\{(.*?)\}/g);
   if (elements) {
-    let weightGroups = [];
+    let groups = [];
     elements.forEach(function (element) {
-      let weights = [];
+      let group = [];
       let tw = [];
       let parts = element.split('|');
 
@@ -22,24 +24,25 @@ module.exports = function (joined) {
         } else {
 
           // find the unit
-          let unit = multiWords(el, wUnits);
+          let unit = multiWords(el, units);
           if (unit !== null && tw.length > 0) {
             tw.forEach(function (w) {
-              weights.push(w * conversions[unit]);
+              group.push(w * conversions[unit]);
             });
+
             // exit the loop
             return true;
           }
         }
       });
 
-      if (weights.length > 0) {
-        weightGroups.push(weights);
+      if (group.length > 0) {
+        groups.push(group);
       }
     });
 
-    if (weightGroups.length > 0) {
-      return weightGroups;
+    if (groups.length > 0) {
+      return groups;
     }
   }
 

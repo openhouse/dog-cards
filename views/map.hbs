@@ -1,15 +1,147 @@
 MAP
+{{!--
 
+<pre>
+{{#each breeds as |breed|}}
+{{#unless breed.lifeSpan.result}}
+{{breed.lifeSpan.debug.joined}}
+{{/unless}}
+{{/each}}
+</pre>
+<pre>
+{{#each breeds as |breed|}}
+{{#unless breed.height.result}}
+{{breed.height.debug.joined}}
+{{/unless}}
+{{/each}}
+</pre>
+--}}
 
 
 {{#each breeds}}
-  <dl>
-    <dt style="color: #d0d0d0;">{{this.breed}}:</dt>
-    <dd>
-      <pre>{{stringify this.weight 2}}</pre>
-    </dd>
-  </dl>
+  {{#unless this.height.result}}
+    {{#if this.height.debug.joined.length}}
+      <dl>
+        <dt style="color: #d0d0d0;">{{this.breed}}:</dt>
+        <dd>
+            <div class="muted"> Height:</div>
+            <div style="padding-left: 30px;">
+              {{#if this.height.result}}
+                {{round this.height.result.avg}} in ({{round this.height.result.min}} - {{round this.height.result.max}} in)<br>
+                <pre class="muted">{{ this.height.debug.joined }}</pre>
+              {{else}}
+                <pre class="alert">{{ this.height.debug.joined}}</pre>
+              {{/if}}
+            </div>
+        </dd>
+      </dl>
+    {{/if}}
+  {{/unless}}
+
 {{/each}}
+{{!--
+      {{#unless this.weight.result}}
+        <div class="muted"> Weight:</div>
+        <div style="padding-left: 30px;">
+          {{#if this.weight.result}}
+            {{round this.weight.result.avg}} lbs ({{round this.weight.result.min}} - {{round this.weight.result.max}} lbs)<br>
+            <pre class="muted">{{ this.weight.debug.joined }}</pre>
+          {{else}}
+            <pre class="alert">{{ this.weight.debug.joined }}</pre>
+          {{/if}}
+        </div>
+      {{/unless}}
+
+      {{#unless this.lifeSpan.result}}
+        <div class="muted"> Life Span:</div>
+        <div style="padding-left: 30px;">
+          {{#if this.lifeSpan.result}}
+            {{this.lifeSpan.result.avg}} years ({{this.lifeSpan.result.min}} - {{this.lifeSpan.result.max}} years)
+            <pre class="muted">{{ this.lifeSpan.debug.joined }}</pre>
+          {{else}}
+            <pre class="alert">{{ this.lifeSpan.debug.joined }}</pre>
+          {{/if}}
+        </div>
+      {{/unless}}
+--}}
+
+
+      {{!--
+      <div class="muted"> Height:</div>
+      <div style="padding-left: 30px;">
+        {{#if this.height.result}}
+          {{round this.height.result.avg}} in ({{round this.height.result.min}} - {{round this.height.result.max}} in)<br>
+          <pre class="muted">{{ this.height.debug.joined }}</pre>
+        {{else}}
+          <pre class="alert">{{ this.height.debug.joined}}</pre>
+        {{/if}}
+      </div>
+
+      <div class="muted"> Weight:</div>
+      <div style="padding-left: 30px;">
+        {{#if this.weight.result}}
+          {{round this.weight.result.avg}} lbs ({{round this.weight.result.min}} - {{round this.weight.result.max}} lbs)<br>
+          <pre class="muted">{{ this.weight.debug.joined }}</pre>
+        {{else}}
+          <pre class="alert">{{ this.weight.debug.joined }}</pre>
+        {{/if}}
+      </div>
+
+      <div class="muted"> Life Span:</div>
+      <div style="padding-left: 30px;">
+        {{#if this.lifeSpan.result}}
+          {{this.lifeSpan.result.avg}} years ({{this.lifeSpan.result.min}} - {{this.lifeSpan.result.max}} years)
+          <pre class="muted">{{ this.lifeSpan.debug.joined }}</pre>
+        {{else}}
+          <pre class="alert">{{ this.lifeSpan.debug.joined }}</pre>
+        {{/if}}
+      </div>
+      --}}
+
+      {{!--
+
+      {{#if this.height.debug.joined}}
+        <pre>height: {{stringify this.height.debug.joined 2}}</pre>
+      {{/if}}
+      {{#if this.weight.debug.joined}}
+        <pre>weight: {{stringify this.weight.debug.joined 2}}</pre>
+      {{/if}}
+      {{#if this.lifeSpan.debug.joined}}
+        <pre>lifeSpan: {{stringify this.lifeSpan.debug.joined 2}}</pre>
+      {{/if}}
+
+      {{#unless this.height.result}}
+        {{#unless this.weight.result}}
+          {{#unless this.lifeSpan.result}}
+            <div style="color:red">
+              {{#if this.height.debug.joined}}
+                <pre>height: {{stringify this.height 2}}</pre>
+              {{/if}}
+              {{#if this.weight.debug.joined}}
+                <pre>weight: {{stringify this.weight 2}}</pre>
+              {{/if}}
+              {{#if this.lifeSpan.debug.joined}}
+                <pre>lifeSpan: {{stringify this.lifeSpan 2}}</pre>
+              {{/if}}
+            </div>
+          {{/unless}}
+        {{/unless}}
+      {{/unless}}
+      --}}
+
+      {{!--
+      <pre>lifeSpan: {{stringify this.lifeSpan 2}}</pre>
+      {{#unless this.height.result}}
+        <pre>height: {{stringify this.height 2}}</pre>
+      {{/unless}}
+      {{#unless this.lifeSpan.result}}
+        <pre>lifeSpan: {{stringify this.lifeSpan 2}}</pre>
+      {{/unless}}
+      {{#unless this.weight.result}}
+        <pre>weight: {{stringify this.weight 2}}</pre>
+      {{/unless}}
+      --}}
+{{!--
 
 <pre>
   <h3>raw</h3>
@@ -17,6 +149,7 @@ MAP
     {{stringify this 2}}
   {{/withFirst}}
 </pre>
+--}}
 
 
 {{!--
