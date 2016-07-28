@@ -29,6 +29,11 @@ const wikiProperties = {
 
 // const getBreedHeight = require('./helpers/get-breed-height.js');
 
+/*
+  TODO: use wikidata to find breed wikis in many languages to extract infobox data
+  http://wdq.wmflabs.org/api?q=CLAIM[31:39367]
+*/
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   couchDb.list({ include_docs: true }, function (err, body) {
