@@ -66,16 +66,18 @@ router.get('/', function (req, res, next) {
 
       couchDb.list({ include_docs: true }, function (err, body) {
         let wBreeds = [];
+        let wDocs = {};
         let n = 0;
         body.rows.forEach(function (row) {
           let { doc } = row;
           if (doc.table) {
-            let breed = {};
-            breed.breed = doc.table.BreedName;
-            breed.title = doc.table.Breed;
-            breed.id = n;
-            wBreeds.push(breed);
-            idx.add(breed);
+            let wBreed = {};
+            wBreed.breed = doc.table.BreedName;
+            wBreed.title = doc.table.Breed;
+            wBreed.id = n;
+            wBreeds.push(wBreed);
+            idx.add(wBreed);
+            wDocs[wBreed.breed] = doc;
             n++;
           }
         });
@@ -127,11 +129,24 @@ router.get('/', function (req, res, next) {
             pBreeds.forEach(function (pb) {
               if (wBreed.dt.breed === pb.name) {
                 wBreed.dt.info = pb.info;
+                wBreed.dt.summary = pb.summary;
               }
             });
           }
 
           delete wBreed.matches;
+        });
+
+        wBreeds.forEach(function (wBreed, index) {
+          if (wBreed.dt) {
+            wDocs[wBreed.breed].dt = wBreed.dt;
+            couchDb.update(wDocs[wBreed.breed], wBreed.title, function (err, body) {
+              log('updated: ', wBreed.title);
+              if (err) {
+                console.log(err);
+              }
+            });
+          }
         });
 
         res.render('match-stars', {

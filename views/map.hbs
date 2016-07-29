@@ -16,7 +16,9 @@ MAP
 {{/each}}
 </pre>
 --}}
-
+{{#each breeds}}
+  <pre>{{stringify this 2}}</pre>
+{{/each}}
 
 {{#each breeds}}
   {{#unless this.height.result}}
@@ -24,15 +26,15 @@ MAP
       <dl>
         <dt style="color: #d0d0d0;">{{this.breed}}:</dt>
         <dd>
-            <div class="muted"> Height:</div>
-            <div style="padding-left: 30px;">
-              {{#if this.height.result}}
-                {{round this.height.result.avg}} in ({{round this.height.result.min}} - {{round this.height.result.max}} in)<br>
-                <pre class="muted">{{ this.height.debug.joined }}</pre>
-              {{else}}
-                <pre class="alert">{{ this.height.debug.joined}}</pre>
-              {{/if}}
-            </div>
+          <div class="muted"> Height:</div>
+          <div style="padding-left: 30px;">
+            {{#if this.height.result}}
+              {{round this.height.result.avg}} in ({{round this.height.result.min}} - {{round this.height.result.max}} in)<br>
+              <pre class="muted">{{ this.height.debug.joined }}</pre>
+            {{else}}
+              <pre class="alert">{{ this.height.debug.joined}}</pre>
+            {{/if}}
+          </div>
         </dd>
       </dl>
     {{/if}}

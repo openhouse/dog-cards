@@ -7,6 +7,7 @@ const cheerio = require('cheerio');
 const nano = require('nano')(process.env.DB_HOST);
 const bluebird = require('bluebird');
 const url = require('url');
+const getNumbersFromString = require('./helpers/get-numbers-from-string.js');
 
 let dogtimeDb = nano.db.use(process.env.DOGTIME_DATABASE);
 dogtimeDb.update = function (obj, key, callback) {
@@ -64,6 +65,8 @@ function getDogtimeInfo(breed) {
     },
   };
   breed.info = {};
+  breed.summary = {};
+
   return rp(options).then(function ($) {
     // get the breed name and url
 
@@ -76,13 +79,22 @@ function getDogtimeInfo(breed) {
       }
     });
 
+    $('.parent-characteristic').each(function (i, elem) {
+      let property = {};
+      property.name = $(this).find('.characteristic').first().text().trim();
+      property.stars = getNumbersFromString($(this).find('.star').first().prop('class'))[0];
+      if (property.name) {
+        breed.summary[property.name] = parseInt(property.stars);
+      }
+    });
+
     dogtimeDb.update(breed, breed.name, function (err, body) {
       if (err) {
         log(err);
       }
     });
 
-    return breed.info;
+    return breed;
   }).catch(function (err) {
     // Crawling failed or Cheerio choked...
     return err;
