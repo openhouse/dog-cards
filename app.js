@@ -10,6 +10,9 @@ var users = require('./routes/users');
 var breeds = require('./routes/breeds');
 var capture = require('./routes/capture');
 var map = require('./routes/map');
+var petfinder = require('./routes/petfinder');
+var dogtime = require('./routes/dogtime');
+var matchStars = require('./routes/match-stars');
 
 var app = express();
 app.use(require('connect-livereload')());
@@ -48,6 +51,9 @@ app.use('/users', users);
 app.use('/breeds', breeds);
 app.use('/capture', capture);
 app.use('/map', map);
+app.use('/petfinder', petfinder);
+app.use('/dogtime', dogtime);
+app.use('/matchstars', matchStars);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

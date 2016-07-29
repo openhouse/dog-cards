@@ -10,6 +10,12 @@ a {
 img {
   max-width: 400px;
 }
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
 .image--best {
   border-radius: 10px;
 }
@@ -33,4 +39,11 @@ img {
         content: "";
     }
   }
+}
+
+.muted {
+  color: #d0d0d0;
+}
+.alert {
+  color: red;
 }

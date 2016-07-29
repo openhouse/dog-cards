@@ -1,0 +1,11 @@
+{{#if info}}
+  <h1>{{pages}}</h1>
+  <pre>{{stringify info 2}}</pre>
+  <hr>
+  <pre>{{stringify breeds 2}}</pre>
+  <script>
+    window.location.assign('{{{meta.next}}}');
+  </script>
+{{else}}
+<h1>Done!</h1>
+{{/if}}
