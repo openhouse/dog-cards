@@ -1,3 +1,18 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'Ideal Sans Book Pro';
+  src: url("/fonts/Ideal-Sans-Book-Pro.eot");
+  src: local("☺"), url("/fonts/Ideal-Sans-Book-Pro.woff") format("woff"), url("/fonts/Ideal-Sans-Book-Pro.ttf") format("truetype"), url("/fonts/Ideal-Sans-Book-Pro.svg") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Ideal Sans Black Pro';
+  src: url("/fonts/Ideal-Sans-Black-Pro.eot");
+  src: local("☺"), url("/fonts/Ideal-Sans-Black-Pro.woff") format("woff"), url("/fonts/Ideal-Sans-Black-Pro.ttf") format("truetype"), url("/fonts/Ideal-Sans-Black-Pro.svg") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
@@ -32,10 +47,167 @@ pre {
     .taglist li:last-child:after {
       content: ""; }
 
-.muted {
-  color: #d0d0d0; }
-
 .alert {
   color: red; }
+
+.pastel-white.text {
+  color: #eeefec; }
+
+.pastel-gray2.text {
+  color: #b4b3b1; }
+
+.pastel-scarlet.text {
+  color: #e52b3b; }
+
+.pastel-blue-green.text {
+  color: #018c85; }
+
+.muted {
+  color: #b4b3b1; }
+
+body {
+  background-color: #eeefec; }
+
+.breed {
+  text-align: center; }
+
+.cards {
+  display: flex;
+  /* or inline-flex */
+  flex-wrap: wrap;
+  justify-content: center; }
+
+.card {
+  margin: 28px;
+  margin-left: 0;
+  margin-top: 0;
+  padding: 0;
+  background-color: white;
+  font-family: 'Ideal Sans Book Pro';
+  text-align: left;
+  align-self: center; }
+
+.card--wide {
+  width: 392px;
+  height: 280px; }
+
+.card--tall {
+  width: 280px;
+  height: 392px; }
+
+.card--front .img {
+  margin-top: 14px;
+  margin-left: 14px;
+  width: calc(100% - 28px);
+  height: calc(100% - 28px);
+  border-radius: 28px; }
+
+.card--back {
+  position: relative;
+  background-size: contain; }
+  .card--back.grid {
+    background-image: url("/images/grid.png"); }
+  .card--back .card-inner {
+    padding: 14px;
+    height: calc(100% - 28px); }
+  .card--back .content {
+    height: 100%;
+    text-rendering: optimizeLegibility; }
+  .card--back .img {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 154px;
+    height: 154px;
+    border-radius: 14px;
+    z-index: 1; }
+  .card--back .name {
+    font-family: 'Ideal Sans Black Pro';
+    font-weight: normal;
+    font-size: 17.11111px;
+    line-height: 18.66667px;
+    text-transform: uppercase;
+    padding: 0;
+    padding-top: 7px;
+    margin: 0;
+    text-shadow: 0.52797px 0.52797px 0 rgba(255, 255, 255, 0.32);
+    text-rendering: optimizeLegibility; }
+  .card--back .content-inner {
+    font-size: 12.44444px;
+    line-height: 14px; }
+  .card--back .card-top {
+    position: relative;
+    z-index: 10;
+    display: table-row; }
+    .card--back .card-top .name {
+      display: table-cell;
+      position: relative;
+      z-index: 10;
+      padding-bottom: 7px; }
+    .card--back .card-top .placeholder {
+      width: 154px;
+      display: table-cell;
+      margin-left: -28px; }
+  .card--back .card-bottom {
+    position: relative;
+    z-index: 10; }
+    .card--back .card-bottom .placeholder {
+      float: right;
+      display: inline-block;
+      width: 154px;
+      height: 154px;
+      padding-left: 12.25px;
+      padding-bottom: 12.25px; }
+  .card--back .feature {
+    padding-bottom: 7px; }
+    .card--back .feature .text {
+      white-space: nowrap; }
+  .card--back .summary {
+    padding-bottom: 14px; }
+  .card--back .writing {
+    position: relative;
+    z-index: 10;
+    font-size: 12.44444px;
+    line-height: 14px; }
+
+.img {
+  background-size: cover;
+  background-position: center center; }
+
+.gallery img {
+  height: 56px; }
+
+.gallery a {
+  text-decoration: none; }
+
+.gallery .rotate {
+  margin-left: 14px;
+  width: 56px;
+  text-align: center; }
+  .gallery .rotate .fa {
+    position: relative;
+    top: -7px;
+    font-size: 42px; }
+
+.nav-btns div {
+  position: fixed;
+  top: 50%;
+  opacity: 0.25; }
+  .nav-btns div.left {
+    left: 14px; }
+  .nav-btns div.right {
+    right: 14px; }
+  .nav-btns div a:link, .nav-btns div a:visited, .nav-btns div a:hover, .nav-btns div a:active {
+    color: black; }
+
+.clear {
+  clear: left;
+  display: block; }
+
+.hide {
+  display: none; }
+
+/*
+*/
 
 /*# sourceMappingURL=style.css.map */

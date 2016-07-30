@@ -1,25 +1,108 @@
-MAP
-{{!--
+<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+<div class="nav-btns">
+  <div class="left">
+    <a href="{{meta.prev}}">
+      <i class="fa fa-3x fa-chevron-left" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="right">
+    <a href="{{meta.next}}">
+      <i class="fa fa-3x fa-chevron-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>
 
-<pre>
-{{#each breeds as |breed|}}
-{{#unless breed.lifeSpan.result}}
-{{breed.lifeSpan.debug.joined}}
-{{/unless}}
-{{/each}}
-</pre>
-<pre>
-{{#each breeds as |breed|}}
-{{#unless breed.height.result}}
-{{breed.height.debug.joined}}
-{{/unless}}
-{{/each}}
-</pre>
---}}
+{{#withFirst breed}}
+  <div class="breed">
+
+
+    <div class="card card--front card--wide">
+      <div class="img" style="background-image: url({{this.images.front}});"></div>
+    </div>
+    <div class="card card--back card--tall -grid">
+      <div class="card-inner">
+        <div class="content">
+          <div class="img" style="background-image: url({{this.images.back}});">
+          </div>
+          <div class="content-inner">
+            <div class="card-top">
+              <h3 class="name">{{this.breed}}</h3>
+              <div class="placeholder"></div>
+            </div>
+            <div class="card-bottom">
+              <div class="placeholder"></div>
+              {{#if this.groups.text}}
+                <div class="feature">{{this.groups.text}}</div>
+              {{/if}}
+              {{#or this.height.result.avg this.weight.result.avg}}
+                <div class="feature">
+                  {{#if this.height.result.avg}}
+                    <span class="pastel-scarlet text">{{round this.height.result.min}}-{{round this.height.result.max}}"</span>&nbsp;
+                  {{/if}}
+                  {{#if this.weight.result.avg}}
+                    <span class="pastel-blue-green text">{{round this.weight.result.min}}-{{round this.weight.result.max}} lb</span>
+                  {{/if}}
+                </div>
+              {{/or}}
+              <div class="paragraphs">
+                {{#if this.text.Intro}}
+                  <div class="summary">
+                    {{#each this.text.Intro as |line|}}
+                      <span class="sentance hide">{{line.text}}</span>
+                    {{/each}}
+                  </div>
+                {{/if}}
+                {{#if this.text.Temperament}}
+                  <div class="temperment">
+                    {{#each this.text.Temperament as |line|}}
+                      <span class="sentance hide">{{line.text}}</span>
+
+                    {{/each}}
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="clear">
+
+  <div class="gallery">
+    <h2 class="muted">Front</h2>
+    {{#each this.images.images as |image|}}
+      <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
+    {{/each}}
+    <a class="rotate">
+      <i class="fa fa-rotate-left muted" aria-hidden="true"></i>
+    </a>
+    <h2 class="muted">Back</h2>
+    {{#each this.images.images as |image|}}
+      <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
+    {{/each}}
+  </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <pre>{{stringify this 2}}</pre>
+  </div>
+{{/withFirst}}
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/scripts/cards.js"></script>
+{{!-- PRINT JSON
 {{#each breeds}}
   <pre>{{stringify this 2}}</pre>
 {{/each}}
+--}}
 
+{{!--  BREEDS WITHOUT HEIGHTS
 {{#each breeds}}
   {{#unless this.height.result}}
     {{#if this.height.debug.joined.length}}
@@ -39,8 +122,32 @@ MAP
       </dl>
     {{/if}}
   {{/unless}}
-
 {{/each}}
+--}}
+
+
+
+
+
+{{!--
+
+<pre>
+{{#each breeds as |breed|}}
+{{#unless breed.lifeSpan.result}}
+{{breed.lifeSpan.debug.joined}}
+{{/unless}}
+{{/each}}
+</pre>
+<pre>
+{{#each breeds as |breed|}}
+{{#unless breed.height.result}}
+{{breed.height.debug.joined}}
+{{/unless}}
+{{/each}}
+</pre>
+--}}
+
+
 {{!--
       {{#unless this.weight.result}}
         <div class="muted"> Weight:</div>

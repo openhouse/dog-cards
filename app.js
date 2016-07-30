@@ -13,6 +13,7 @@ var map = require('./routes/map');
 var petfinder = require('./routes/petfinder');
 var dogtime = require('./routes/dogtime');
 var matchStars = require('./routes/match-stars');
+var cards = require('./routes/cards');
 
 var app = express();
 app.use(require('connect-livereload')());
@@ -54,6 +55,11 @@ app.use('/map', map);
 app.use('/petfinder', petfinder);
 app.use('/dogtime', dogtime);
 app.use('/matchstars', matchStars);
+app.use('/bower_components', express.static('./bower_components'));
+app.use('/cards/:page', cards);
+app.use('/cards', cards);
+
+// app.use('/cards', cards);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
