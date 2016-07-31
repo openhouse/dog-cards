@@ -256,6 +256,35 @@ body {
 .img {
   background-size: cover;
   background-position: center center;
+	&.left-top{
+		background-position: left top;
+	}
+	&.center-top{
+		background-position: center top;
+	}
+	&.right-top{
+		background-position: right top;
+	}
+	&.left-center{
+		background-position: left center;
+	}
+	&.center-center{
+		background-position: center center;
+	}
+	&.right-center{
+		background-position: right center;
+	}
+	&.left-bottom{
+		background-position: left bottom;
+	}
+	&.center-bottom{
+		background-position: center bottom;
+	}
+	&.right-bottom{
+		background-position: right bottom;
+	}
+
+
 }
 
 // gallery
@@ -277,6 +306,20 @@ body {
     width: $gridUnit * 8;
     text-align: center;
   }
+}
+
+.positioner {
+	display: inline-block;
+	margin-left: $gridUnit * 2;
+
+	a {
+		display: inline-block;
+		background-color: $jp-gray2;
+		width: $gridUnit * 2 ;
+		height: $gridUnit * 2 ;
+		padding: 0;
+		margin: 0;
+	}
 }
 
 // nav-btns

@@ -173,6 +173,24 @@ body {
 .img {
   background-size: cover;
   background-position: center center; }
+  .img.left-top {
+    background-position: left top; }
+  .img.center-top {
+    background-position: center top; }
+  .img.right-top {
+    background-position: right top; }
+  .img.left-center {
+    background-position: left center; }
+  .img.center-center {
+    background-position: center center; }
+  .img.right-center {
+    background-position: right center; }
+  .img.left-bottom {
+    background-position: left bottom; }
+  .img.center-bottom {
+    background-position: center bottom; }
+  .img.right-bottom {
+    background-position: right bottom; }
 
 .gallery img {
   height: 56px; }
@@ -188,6 +206,17 @@ body {
     position: relative;
     top: -7px;
     font-size: 42px; }
+
+.positioner {
+  display: inline-block;
+  margin-left: 14px; }
+  .positioner a {
+    display: inline-block;
+    background-color: #b4b3b1;
+    width: 14px;
+    height: 14px;
+    padding: 0;
+    margin: 0; }
 
 .nav-btns div {
   position: fixed;

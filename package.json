@@ -25,6 +25,7 @@
     "run-sequence": "^1.2.2",
     "slug": "^0.9.1",
     "tiny-lr": "^0.2.1",
+    "wikidata-sdk": "^3.2.0",
     "wikijs": "^1.1.0"
   },
   "scripts": {

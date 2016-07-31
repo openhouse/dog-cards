@@ -14,6 +14,7 @@ var petfinder = require('./routes/petfinder');
 var dogtime = require('./routes/dogtime');
 var matchStars = require('./routes/match-stars');
 var cards = require('./routes/cards');
+var wikidata = require('./routes/wikidata');
 
 var app = express();
 app.use(require('connect-livereload')());
@@ -58,6 +59,8 @@ app.use('/matchstars', matchStars);
 app.use('/bower_components', express.static('./bower_components'));
 app.use('/cards/:page', cards);
 app.use('/cards', cards);
+app.use('/wikidata/:page', wikidata);
+app.use('/wikidata', wikidata);
 
 // app.use('/cards', cards);
 

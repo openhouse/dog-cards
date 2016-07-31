@@ -148,6 +148,29 @@ function getBreedImages(doc) {
     });
   }
 
+  if (doc.wikidata) {
+    if (doc.wikidata.allImages) {
+      log(doc.wikidata.allImages);
+      doc.wikidata.allImages.forEach(function (wImage) {
+        let found = false;
+
+        result.images.forEach(function (rImage, ittr) {
+          if (wImage.file === rImage.file) {
+            result.images[ittr] = wImage;
+            found = true;
+          }
+        });
+
+        if (!found) {
+          result.images.push(wImage);
+
+        }
+
+      });
+
+    }
+  }
+
   /*
   'wiki'
     "images": [

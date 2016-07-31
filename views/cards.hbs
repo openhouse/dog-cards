@@ -17,13 +17,13 @@
 
     <div class="cards">
     <div class="card card--front {{#if this.prefs.rotate}}card--tall{{else}}card--wide{{/if}}">
-      <div class="img" style='background-image: url("{{this.prefs.images.front}}");'></div>
+      <div class="img {{this.prefs.fpos}}" style='background-image: url("{{this.prefs.images.front}}");'></div>
     </div>
 
     <div class="card card--back card--tall -grid">
       <div class="card-inner">
         <div class="content">
-          <div class="img" style='background-image: url("{{this.prefs.images.back}}");'>
+          <div class="img {{this.prefs.bpos}}" style='background-image: url("{{this.prefs.images.back}}");'>
           </div>
           <div class="content-inner">
             <div class="card-top">
@@ -76,19 +76,58 @@
   <div class="gallery">
     <h2 class="muted">Front</h2>
     {{#each this.images.images as |image|}}
-      <a href="?front={{encodeURI image.file}}">
-        <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
-      </a>
+      {{#if image.url}}
+        <a href="?front={{encodeURI image.file}}">
+          <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
+        </a>
+      {{/if}}
     {{/each}}
+    <div class="positioner">
+      <div>
+        <a class="left-top" href="?fpos=left-top">&nbsp;</a>
+        <a class="center-top" href="?fpos=center-top">&nbsp;</a>
+        <a class="right-top" href="?fpos=right-top">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-center" href="?fpos=left-center">&nbsp;</a>
+        <a class="center-center" href="?fpos=center-center">&nbsp;</a>
+        <a class="right-center" href="?fpos=right-center">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-bottom" href="?fpos=left-bottom">&nbsp;</a>
+        <a class="center-bottom" href="?fpos=center-bottom">&nbsp;</a>
+        <a class="right-bottom" href="?fpos=right-bottom">&nbsp;</a>
+      </div>
+    </div>
     <a class="rotate" href="?rotate=true">
       <i class="fa fa-rotate-left muted" aria-hidden="true"></i>
     </a>
     <h2 class="muted">Back</h2>
     {{#each this.images.images as |image|}}
-      <a href="?back={{encodeURI image.file}}">
-        <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
-      </a>
+      {{#if image.url}}
+        <a href="?back={{encodeURI image.file}}">
+          <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
+        </a>
+      {{/if}}
     {{/each}}
+    <div class="positioner">
+      <div>
+        <a class="left-top" href="?bpos=left-top">&nbsp;</a>
+        <a class="center-top" href="?bpos=center-top">&nbsp;</a>
+        <a class="right-top" href="?bpos=right-top">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-center" href="?bpos=left-center">&nbsp;</a>
+        <a class="center-center" href="?bpos=center-center">&nbsp;</a>
+        <a class="right-center" href="?bpos=right-center">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-bottom" href="?bpos=left-bottom">&nbsp;</a>
+        <a class="center-bottom" href="?bpos=center-bottom">&nbsp;</a>
+        <a class="right-bottom" href="?bpos=right-bottom">&nbsp;</a>
+      </div>
+    </div>
+
   </div>
 
     <br/>

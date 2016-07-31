@@ -1,0 +1,10 @@
+
+<pre>{{stringify meta 2}}</pre>
+<pre>{{stringify result 2}}</pre>
+{{#unless meta.done}}
+  <script>
+    window.location.assign('{{{meta.next}}}');
+  </script>
+{{else}}
+  <h1>Done!</h1>
+{{/unless}}

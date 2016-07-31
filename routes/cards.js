@@ -58,6 +58,7 @@ router.get('/', function (req, res, next) {
       images.forEach(function (image) {
         if (image.file === setFront) {
           breed.prefs.images.front = image.url;
+          breed.prefs.fpos = 'center-center';
           isDirty = true;
         }
       });
@@ -69,6 +70,7 @@ router.get('/', function (req, res, next) {
       images.forEach(function (image) {
         if (image.file === setBack) {
           breed.prefs.images.back = image.url;
+          breed.prefs.bpos = 'center-center';
           isDirty = true;
         }
       });
@@ -84,6 +86,26 @@ router.get('/', function (req, res, next) {
       }
 
       isDirty = true;
+    }
+
+
+    // set image positioning via query
+    if (urlParts.query.fpos) {
+      breed.prefs.fpos = urlParts.query.fpos;
+      isDirty = true;
+    } else {
+      if (!breed.prefs.fpos) {
+        breed.prefs.fpos = 'center-center';
+      }
+    }
+
+    if (urlParts.query.bpos) {
+      breed.prefs.bpos = urlParts.query.bpos;
+      isDirty = true;
+    } else {
+      if (!breed.prefs.bpos) {
+        breed.prefs.bpos = 'center-center';
+      }
     }
 
     // save changed prefs
