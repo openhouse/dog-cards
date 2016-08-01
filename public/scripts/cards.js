@@ -10,7 +10,7 @@ function fits(card) {
   return outHeight > inHeight;
 }
 
-function revealSentances(card) {
+function revealSentences(card) {
   let adding = true;
   let n = 0;
   while (adding) {
@@ -21,7 +21,7 @@ function revealSentances(card) {
     let removed = 0;
     let more = 0;
 
-    hidden = card.find('.summary .sentance.hide').first();
+    hidden = card.find('.summary .sentence.hide').first();
     if (hidden.text().trim().length > 0) {
       added++;
       hidden.removeClass('hide');
@@ -33,7 +33,7 @@ function revealSentances(card) {
       }
     }
 
-    hidden = card.find('.temperment .sentance.hide').first();
+    hidden = card.find('.temperment .sentence.hide').first();
     if (hidden.text().trim().length > 0) {
       added++;
       hidden.removeClass('hide');
@@ -60,7 +60,7 @@ $(function () {
   $.each(cardBacks, function (key, value) {
     let card = $(value);
     resizePlaceholder(card);
-    revealSentances(card);
+    revealSentences(card);
   });
 
   console.log(cardBacks);

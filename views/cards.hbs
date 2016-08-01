@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 <div class="nav-btns">
   <div class="left">
     <a href="{{meta.prev}}">
@@ -38,7 +40,13 @@
               {{#or this.height.result.avg this.weight.result.avg}}
                 <div class="feature">
                   {{#if this.height.result.avg}}
-                    <span class="pastel-scarlet text">{{round this.height.result.min}}-{{round this.height.result.max}}"</span>&nbsp;
+                    <span class="pastel-scarlet text">
+                      {{#eq this.height.result.min this.height.result.max}}
+                        {{round this.height.result.avg}}"
+                      {{else}}
+                        {{round this.height.result.min}}-{{round this.height.result.max}}"
+                      {{/eq}}
+                    </span>&nbsp;
                   {{/if}}
                   {{#if this.weight.result.avg}}
                     <span class="pastel-blue-green text">{{round this.weight.result.min}}-{{round this.weight.result.max}} lb</span>
@@ -49,14 +57,14 @@
                 {{#if this.text.Intro}}
                   <div class="summary">
                     {{#each this.text.Intro as |line|}}
-                      <span class="sentance hide">{{line.text}}</span>
+                      <span class="sentence hide">{{line.text}}</span>
                     {{/each}}
                   </div>
                 {{/if}}
                 {{#if this.text.Temperament}}
                   <div class="temperment">
                     {{#each this.text.Temperament as |line|}}
-                      <span class="sentance hide">{{line.text}}</span>
+                      <span class="sentence hide">{{line.text}}</span>
 
                     {{/each}}
                   </div>
@@ -64,7 +72,150 @@
               </div>
             </div>
           </div>
+
+          {{#if this.dt}}
+            <div class="icons">
+              {{#gt this.dt.summary.Adaptability 4}}
+                <i class="fa fa-refresh fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.FriendlyTowardStrangers 4}}
+                <i class="fa fa-user-secret fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.EasyToTrain 4}}
+                <i class="fa fa-graduation-cap fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.Intelligence 4}}
+                <i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.DogFriendly 4}}
+                <i class="fa fa-paw fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.EnergyLevel 4}}
+                <i class="fa fa-coffee fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ToleratesBeingAlone 4}}
+                <i class="fa fa-street-view fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.GeneralHealth 4}}
+                <i class="fa fa-heartbeat fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.AdaptsWelltoApartmentLiving 4}}
+                <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.AffectionatewithFamily 4}}
+                <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.summary.AllAroundFriendliness 4}}
+                <i class="material-icons">local_florist</i>
+              {{/gt}}
+              {{#gt this.dt.info.IncrediblyKidFriendlyDogs 4}}
+                <i class="material-icons">child_friendly</i>
+              {{/gt}}
+              {{#gt this.dt.info.TendencyToBarkOrHowl 4}}
+                <i class="fa fa-bullhorn " aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.GoodForNoviceOwners 4}}
+                <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.SensitivityLevel 4}}
+                <i class="fa fa-frown-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ExerciseNeeds 4}}
+                <i class="material-icons">directions_run</i>
+              {{/gt}}
+              {{#gt this.dt.info.PreyDrive 4}}
+                <i class="fa fa-bug fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ToleratesHotWeather 4}}
+                <i class="fa fa-sun-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.EasyToGroom 4}}
+                <i class="fa fa-scissors fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.Intensity 4}}
+                <i class="fa fa-bolt fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.AmountOfShedding 4}}
+                <i class="material-icons">gesture</i>
+              {{/gt}}
+              {{#gt this.dt.info.PotentialForPlayfulness 4}}
+                <i class="material-icons">bubble_chart</i>
+              {{/gt}}
+              {{#gt this.dt.info.WanderlustPotential 4}}
+                <i class="fa fa-chain-broken fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.PotentialForMouthiness 4}}
+                <i class="fa fa-birthday-cake fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ToleratesColdWeather 4}}
+                <i class="material-icons">ac_unit</i>
+              {{/gt}}
+              {{#gt this.dt.info.PotentialForWeightGain 4}}
+                <i class="fa fa-balance-scale fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.DroolingPotential 4}}
+                <i class="fa fa-tint fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+            </div>
+          {{/if}}
+
+          {{#if this.height.disp.avg}}
+            <div class="left-stat stat">
+              <div
+                class="line-chart pastel-scarlet background"
+                style="bottom: {{this.height.disp.low}}%; height: {{this.height.disp.range}}%;"
+                >
+              </div>
+              <div class="dot-wrapper">
+                <i
+                  class="fa fa-circle fa-fw chart-dot pastel-scarlet text"
+                  aria-hidden="true"
+                  style="top: {{this.height.disp.avg}}%;"
+                  ></i>
+              </div>
+            </div>
+          {{/if}}
+          {{#if this.weight.disp.avg}}
+            <div class="right-stat stat">
+              <div
+                class="line-chart pastel-blue-green background"
+                style="bottom: {{this.weight.disp.low}}%; height: {{this.weight.disp.range}}%;"
+                >
+              </div>
+              <div class="dot-wrapper">
+                <i
+                  class="fa fa-circle fa-fw chart-dot pastel-blue-green text"
+                  aria-hidden="true"
+                  style="top: {{this.weight.disp.avg}}%;"
+                  ></i>
+              </div>
+            </div>
+          {{/if}}
+          {{#if this.lifeSpan.disp.avg}}
+            <div class="bottom-stat">
+              <div
+                class="line-chart pastel-white background"
+                style="left: {{this.lifeSpan.disp.low}}%; width: {{this.lifeSpan.disp.range}}%;"
+                >
+              </div>
+              <div class="dot-wrapper">
+                <i
+                  class="fa fa-circle fa-fw chart-dot pastel-white text"
+                  aria-hidden="true"
+                  style="left: {{this.lifeSpan.disp.avg}}%;"
+                  ></i>
+              </div>
+            </div>
+          {{/if}}
+
+
+
+
+
+
         </div>
+
+
       </div>
 
 
@@ -129,7 +280,7 @@
     </div>
 
   </div>
-
+    <pre>{{stringify this.lifeSpan 2}}</pre>
     <br/>
     <br/>
     <br/>

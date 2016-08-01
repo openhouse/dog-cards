@@ -68,6 +68,7 @@ let { log } = console;
 
 const getBreedGroups = require('./helpers/get-breed-groups.js');
 const getBreedInfo = require('./helpers/get-breed-info.js');
+const decorateBreedsWithPercentiles = require('./helpers/decorate-breeds-with-percentiles.js');
 const wikiProperties = {
   weight: ['weight', 'maleweight', 'femaleweight'],
   height: ['height', 'maleheight', 'femaleheight'],
@@ -150,7 +151,7 @@ function getBreedImages(doc) {
 
   if (doc.wikidata) {
     if (doc.wikidata.allImages) {
-      log(doc.wikidata.allImages);
+      // log(doc.wikidata.allImages);
       doc.wikidata.allImages.forEach(function (wImage) {
         let found = false;
 
@@ -214,6 +215,21 @@ router.get('/', function (req, res, next) {
         breed.lifeSpan = getBreedInfo(doc, 'lifeSpan', wikiProperties.lifeSpan);
         breed.images = getBreedImages(doc);
         breed.text = doc.wtf.text;
+        if (doc.dt) {
+          breed.dt = {};
+          breed.dt.info = {};
+          breed.dt.summary = {};
+          for (let x in doc.dt.info) {
+            let short = x.replace(/ /g, '');
+            breed.dt.info[short] = doc.dt.info[x];
+          }
+
+          for (let x in doc.dt.summary) {
+            let short = x.replace(/ /g, '');
+            breed.dt.summary[short] = doc.dt.summary[x];
+          }
+        }
+
         breeds.push(breed);
         /*
         if (
@@ -226,20 +242,14 @@ router.get('/', function (req, res, next) {
 
       }
     });
+
+    breeds = decorateBreedsWithPercentiles(breeds);
+
     // https://upload.wikimedia.org/wikipedia/en/f/fc/Bullenbeisser.jpg
     //   https://upload.wikimedia.org/wikipedia/commons/f/fc/Bullenbeisser.jpg
     // save to heartDogsDb
-    /*
-    breeds.forEach(function (breed) {
-      heartDogsDb.updateAsync(breed, breed.id)
-        .then(function (item) {
-          log('success');
-        }).catch(function (reason) {
-          // rejection
-          log('problem', reason);
-        });
-    });
-    */
+
+    // save to database
     Promise.reduce(breeds, function (total, breed) {
       return heartDogsDb.updateAsync(breed, breed.id)
         .then(function (item) {
@@ -252,8 +262,6 @@ router.get('/', function (req, res, next) {
     }, 0).then(function (total) {
       log('promises done!', total);
     });
-
-
 
     /*
     if (a.height && b.height) {
@@ -289,6 +297,8 @@ router.get('/', function (req, res, next) {
       raw: body.rows,
       breeds: breeds,
       breed: [breeds[page]],
+      stats: {
+      },
       meta: {
         pages: breeds.length,
         page: page,

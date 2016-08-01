@@ -53,14 +53,26 @@ pre {
 .pastel-white.text {
   color: #eeefec; }
 
+.pastel-white.background {
+  background-color: #eeefec; }
+
 .pastel-gray2.text {
   color: #b4b3b1; }
+
+.pastel-gray2.background {
+  background-color: #b4b3b1; }
 
 .pastel-scarlet.text {
   color: #e52b3b; }
 
+.pastel-scarlet.background {
+  background-color: #e52b3b; }
+
 .pastel-blue-green.text {
   color: #018c85; }
+
+.pastel-blue-green.background {
+  background-color: #018c85; }
 
 .muted {
   color: #b4b3b1; }
@@ -111,7 +123,7 @@ body {
     padding: 14px;
     height: calc(100% - 28px); }
   .card--back .content {
-    height: 100%;
+    height: calc(100% - 14px);
     text-rendering: optimizeLegibility; }
   .card--back .img {
     position: absolute;
@@ -229,12 +241,74 @@ body {
   .nav-btns div a:link, .nav-btns div a:visited, .nav-btns div a:hover, .nav-btns div a:active {
     color: black; }
 
+.icons {
+  position: absolute;
+  bottom: 14px;
+  font-size: 12.44444px;
+  line-height: 14px;
+  width: 252px;
+  height: 15.75px;
+  overflow: hidden; }
+  .icons .material-icons {
+    font-size: 13.22222px;
+    line-height: 14px;
+    position: relative;
+    top: 1.94444px; }
+
+.left-stat {
+  left: 0; }
+
+.right-stat {
+  right: 0; }
+
+.stat {
+  position: absolute;
+  width: 14px;
+  top: 7px;
+  bottom: 7px; }
+  .stat .line-chart {
+    position: absolute;
+    left: 7px;
+    width: 1px; }
+  .stat .dot-wrapper {
+    height: calc(100% - 7px);
+    width: 14px;
+    margin: 0;
+    margin-top: -7px;
+    text-align: center; }
+  .stat .chart-dot {
+    position: relative;
+    line-height: 7px;
+    font-size: 4.32624px;
+    left: 0.75px; }
+
+.bottom-stat {
+  position: absolute;
+  bottom: 0;
+  height: 14px;
+  left: 7px;
+  right: 7px; }
+  .bottom-stat .line-chart {
+    position: absolute;
+    bottom: 7px;
+    height: 1px; }
+  .bottom-stat .dot-wrapper {
+    width: calc(100% - 7px);
+    height: 14px;
+    margin: 0;
+    margin-right: -7px; }
+  .bottom-stat .chart-dot {
+    position: relative;
+    line-height: 7px;
+    font-size: 4.32624px;
+    bottom: 4.5px; }
+
 .clear {
   clear: left;
   display: block; }
 
 .hide {
-  display: none; }
+  display: none !important; }
 
 /*
 */

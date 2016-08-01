@@ -142,6 +142,31 @@ router.get('/', function (req, res, next) {
       }
     }
 
+    // set up height, weight and lifeSpan for display
+    if (breed.height.percentile) {
+      breed.height.disp = {
+        low:    breed.height.percentile.min * 100,
+        range:  (breed.height.percentile.max - breed.height.percentile.min) * 100,
+        avg:    (1 - breed.height.percentile.avg) * 100,
+      };
+    }
+
+    if (breed.weight.percentile) {
+      breed.weight.disp = {
+        low:    breed.weight.percentile.min * 100,
+        range:  (breed.weight.percentile.max - breed.weight.percentile.min) * 100,
+        avg:    (1 - breed.weight.percentile.avg) * 100,
+      };
+    }
+
+    if (breed.lifeSpan.percentile) {
+      breed.lifeSpan.disp = {
+        low:    breed.lifeSpan.percentile.min * 100,
+        range:  (breed.lifeSpan.percentile.max - breed.lifeSpan.percentile.min) * 100,
+        avg:    (breed.lifeSpan.percentile.avg) * 100,
+      };
+    }
+
     res.render('cards', {
       raw: body,
       breed: [breed],

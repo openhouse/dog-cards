@@ -51,8 +51,8 @@ module.exports = function getBreedInfo({ wtf, wiki, table }, type, wikiPropertie
 
     // lifeSpan
     if (type === 'lifeSpan') {
-      let beforeWikiTags = joined.split('{')[0];
-
+      let beforeWikiTags = joined.replace('{{ndash}}', '-');
+      beforeWikiTags = beforeWikiTags.split('{')[0];
       let numbers = getNumbersFromString(beforeWikiTags);
 
       let group = [];

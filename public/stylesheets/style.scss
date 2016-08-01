@@ -95,6 +95,8 @@ $colors:(
 
 @each $name, $value in $colors {
     .pastel-#{$name}.text { color: $value; }
+		.pastel-#{$name}.background { background-color: $value; }
+
 }
 
 //
@@ -165,7 +167,7 @@ body {
 
 
     .content {
-      height: 100%;
+      height: calc(100% - #{$gridUnit * 2});
       // overflow: hidden;
       text-rendering: optimizeLegibility;
 
@@ -248,7 +250,9 @@ body {
             line-height: pt2px(9);
 
           }
-
+					.sentence {
+						// word-break: break-all;
+					}
 }
 
 
@@ -342,6 +346,101 @@ body {
   }
 }
 
+.icons {
+	position: absolute;
+	bottom: $gridUnit * 2;
+	font-size: pt2px(8);
+	line-height: pt2px(9);
+	width: $gridUnit * 36;
+	height: $gridUnit * 2.25;
+	overflow: hidden;
+
+	.material-icons {
+		font-size: pt2px(8.5);
+		line-height: pt2px(9);
+		position: relative;
+		top: pt2px(1.25);
+	}
+}
+
+
+.left-stat {
+	left: 0;
+	// background-color: rgba(255, 255, 0, 0.5);
+}
+.right-stat {
+	right: 0;
+	// background-color: rgba(255, 255, 0, 0.5);
+}
+
+
+
+
+.stat {
+	position: absolute;
+	width: $gridUnit * 2;
+	top: $gridUnit;
+	bottom: $gridUnit;
+
+	.line-chart {
+		position: absolute;
+		left: $gridUnit;
+		width: 1px;
+	}
+	.dot-wrapper {
+		height: calc(100% - #{$gridUnit});
+		width: $gridUnit * 2;
+		margin: 0;
+		margin-top: $gridUnit * -1;
+		// margin-left: $gridUnit / 2;
+		text-align: center;
+	}
+		.chart-dot {
+			position: relative;
+			line-height: $gridUnit;
+			font-size: $gridUnit * 0.61803398874985;
+			//left: $gridUnit / 2 + 1;
+			left: 0.75px;
+
+		}
+
+}
+
+
+
+.bottom-stat {
+	position: absolute;
+	bottom: 0;
+	height: $gridUnit * 2;
+	left: $gridUnit;
+	right: $gridUnit;
+
+	// background-color: rgba(255, 255, 0, 0.5);
+
+		.line-chart {
+			position: absolute;
+			bottom: $gridUnit;
+			height: 1px;
+		}
+		.dot-wrapper {
+			width: calc(100% - #{$gridUnit});
+			height: $gridUnit * 2;
+			margin: 0;
+			margin-right: $gridUnit * -1;
+			// margin-left: $gridUnit / 2;
+			// text-align: center;
+		}
+			.chart-dot {
+				position: relative;
+				line-height: $gridUnit;
+				font-size: $gridUnit * 0.61803398874985;
+				bottom: $gridUnit / 2 + 1;
+			}
+}
+
+
+
+
 
 
 
@@ -351,7 +450,7 @@ body {
   display: block;
 }
 .hide {
-  display: none;
+  display: none !important;
 }
 
 
