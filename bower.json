@@ -1,0 +1,28 @@
+{
+  "name": "dog-cards",
+  "description": "A game to help you find your new best friend!",
+  "main": "index.js",
+  "authors": [
+    "@openhouse"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dogs",
+    "game",
+    "breeds"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "font-awesome": "^4.6.3",
+    "material-design-icons": "^2.2.3"
+  }
+}

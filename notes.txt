@@ -1,0 +1,6 @@
+Order for importing
+- capture
+- dogtime
+- match stars
+- wikidata
+- map

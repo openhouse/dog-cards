@@ -11,6 +11,7 @@
   "author": "@openhouse",
   "devDependencies": {
     "bluebird": "^3.4.1",
+    "bower": "^1.7.9",
     "chai": "^3.5.0",
     "cheerio": "^0.20.0",
     "clear": "0.0.1",
@@ -22,7 +23,9 @@
     "gulp-mocha": "^2.2.0",
     "mocha": "^2.5.3",
     "run-sequence": "^1.2.2",
+    "slug": "^0.9.1",
     "tiny-lr": "^0.2.1",
+    "wikidata-sdk": "^3.2.0",
     "wikijs": "^1.1.0"
   },
   "scripts": {

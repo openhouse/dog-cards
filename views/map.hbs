@@ -1,25 +1,26 @@
-MAP
-{{!--
+{{!-- <pre>{{stringify stats 2}}</pre> --}}
 
-<pre>
-{{#each breeds as |breed|}}
-{{#unless breed.lifeSpan.result}}
-{{breed.lifeSpan.debug.joined}}
-{{/unless}}
+
+{{#each breeds}}
+  <dl>
+    <dt style="color: #d0d0d0;">{{this.breed}}:</dt>
+    <dd>
+      <pre>height: {{stringify this.height.percentile 2}}</pre>
+      <pre>weight: {{stringify this.weight.percentile 2}}</pre>
+      <pre>lifeSpan: {{stringify this.lifeSpan.percentile 2}}</pre>
+
+    </dd>
+  </dl>
 {{/each}}
-</pre>
-<pre>
-{{#each breeds as |breed|}}
-{{#unless breed.height.result}}
-{{breed.height.debug.joined}}
-{{/unless}}
-{{/each}}
-</pre>
---}}
+
+
+{{!-- PRINT JSON
 {{#each breeds}}
   <pre>{{stringify this 2}}</pre>
 {{/each}}
+--}}
 
+{{!--  BREEDS WITHOUT HEIGHTS
 {{#each breeds}}
   {{#unless this.height.result}}
     {{#if this.height.debug.joined.length}}
@@ -39,8 +40,32 @@ MAP
       </dl>
     {{/if}}
   {{/unless}}
-
 {{/each}}
+--}}
+
+
+
+
+
+{{!--
+
+<pre>
+{{#each breeds as |breed|}}
+{{#unless breed.lifeSpan.result}}
+{{breed.lifeSpan.debug.joined}}
+{{/unless}}
+{{/each}}
+</pre>
+<pre>
+{{#each breeds as |breed|}}
+{{#unless breed.height.result}}
+{{breed.height.debug.joined}}
+{{/unless}}
+{{/each}}
+</pre>
+--}}
+
+
 {{!--
       {{#unless this.weight.result}}
         <div class="muted"> Weight:</div>

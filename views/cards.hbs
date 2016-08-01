@@ -1,0 +1,294 @@
+<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<div class="nav-btns">
+  <div class="left">
+    <a href="{{meta.prev}}">
+      <i class="fa fa-3x fa-chevron-left" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="right">
+    <a href="{{meta.next}}">
+      <i class="fa fa-3x fa-chevron-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>
+
+{{#withFirst breed}}
+  <div class="breed">
+
+    <div class="cards">
+    <div class="card card--front {{#if this.prefs.rotate}}card--tall{{else}}card--wide{{/if}}">
+      <div class="img {{this.prefs.fpos}}" style='background-image: url("{{this.prefs.images.front}}");'></div>
+    </div>
+
+    <div class="card card--back card--tall -grid">
+      <div class="card-inner">
+        <div class="content">
+          <div class="img {{this.prefs.bpos}}" style='background-image: url("{{this.prefs.images.back}}");'>
+          </div>
+          <div class="content-inner">
+            <div class="card-top">
+              <h3 class="name">{{this.breed}}</h3>
+              <div class="placeholder"></div>
+            </div>
+            <div class="card-bottom">
+              <div class="placeholder"></div>
+              {{#if this.groups.text}}
+                <div class="feature">{{this.groups.text}}</div>
+              {{/if}}
+              {{#or this.height.result.avg this.weight.result.avg}}
+                <div class="feature">
+                  {{#if this.height.result.avg}}
+                    <span class="pastel-scarlet text">
+                      {{#eq this.height.result.min this.height.result.max}}
+                        {{round this.height.result.avg}}"
+                      {{else}}
+                        {{round this.height.result.min}}-{{round this.height.result.max}}"
+                      {{/eq}}
+                    </span>&nbsp;
+                  {{/if}}
+                  {{#if this.weight.result.avg}}
+                    <span class="pastel-blue-green text">{{round this.weight.result.min}}-{{round this.weight.result.max}} lb</span>
+                  {{/if}}
+                </div>
+              {{/or}}
+              <div class="paragraphs">
+                {{#if this.text.Intro}}
+                  <div class="summary">
+                    {{#each this.text.Intro as |line|}}
+                      <span class="sentence hide">{{line.text}}</span>
+                    {{/each}}
+                  </div>
+                {{/if}}
+                {{#if this.text.Temperament}}
+                  <div class="temperment">
+                    {{#each this.text.Temperament as |line|}}
+                      <span class="sentence hide">{{line.text}}</span>
+
+                    {{/each}}
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+
+          {{#if this.dt}}
+            <div class="icons">
+              {{#gt this.dt.summary.Adaptability 4}}
+                <i class="fa fa-refresh fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.FriendlyTowardStrangers 4}}
+                <i class="fa fa-user-secret fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.EasyToTrain 4}}
+                <i class="fa fa-graduation-cap fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.Intelligence 4}}
+                <i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.DogFriendly 4}}
+                <i class="fa fa-paw fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.EnergyLevel 4}}
+                <i class="fa fa-coffee fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ToleratesBeingAlone 4}}
+                <i class="fa fa-street-view fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.GeneralHealth 4}}
+                <i class="fa fa-heartbeat fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.AdaptsWelltoApartmentLiving 4}}
+                <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.AffectionatewithFamily 4}}
+                <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.summary.AllAroundFriendliness 4}}
+                <i class="material-icons">local_florist</i>
+              {{/gt}}
+              {{#gt this.dt.info.IncrediblyKidFriendlyDogs 4}}
+                <i class="material-icons">child_friendly</i>
+              {{/gt}}
+              {{#gt this.dt.info.TendencyToBarkOrHowl 4}}
+                <i class="fa fa-bullhorn " aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.GoodForNoviceOwners 4}}
+                <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.SensitivityLevel 4}}
+                <i class="fa fa-frown-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ExerciseNeeds 4}}
+                <i class="material-icons">directions_run</i>
+              {{/gt}}
+              {{#gt this.dt.info.PreyDrive 4}}
+                <i class="fa fa-bug fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ToleratesHotWeather 4}}
+                <i class="fa fa-sun-o fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.EasyToGroom 4}}
+                <i class="fa fa-scissors fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.Intensity 4}}
+                <i class="fa fa-bolt fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.AmountOfShedding 4}}
+                <i class="material-icons">gesture</i>
+              {{/gt}}
+              {{#gt this.dt.info.PotentialForPlayfulness 4}}
+                <i class="material-icons">bubble_chart</i>
+              {{/gt}}
+              {{#gt this.dt.info.WanderlustPotential 4}}
+                <i class="fa fa-chain-broken fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.PotentialForMouthiness 4}}
+                <i class="fa fa-birthday-cake fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.ToleratesColdWeather 4}}
+                <i class="material-icons">ac_unit</i>
+              {{/gt}}
+              {{#gt this.dt.info.PotentialForWeightGain 4}}
+                <i class="fa fa-balance-scale fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.DroolingPotential 4}}
+                <i class="fa fa-tint fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+            </div>
+          {{/if}}
+
+          {{#if this.height.disp.avg}}
+            <div class="left-stat stat">
+              <div
+                class="line-chart pastel-scarlet background"
+                style="bottom: {{this.height.disp.low}}%; height: {{this.height.disp.range}}%;"
+                >
+              </div>
+              <div class="dot-wrapper">
+                <i
+                  class="fa fa-circle fa-fw chart-dot pastel-scarlet text"
+                  aria-hidden="true"
+                  style="top: {{this.height.disp.avg}}%;"
+                  ></i>
+              </div>
+            </div>
+          {{/if}}
+          {{#if this.weight.disp.avg}}
+            <div class="right-stat stat">
+              <div
+                class="line-chart pastel-blue-green background"
+                style="bottom: {{this.weight.disp.low}}%; height: {{this.weight.disp.range}}%;"
+                >
+              </div>
+              <div class="dot-wrapper">
+                <i
+                  class="fa fa-circle fa-fw chart-dot pastel-blue-green text"
+                  aria-hidden="true"
+                  style="top: {{this.weight.disp.avg}}%;"
+                  ></i>
+              </div>
+            </div>
+          {{/if}}
+          {{#if this.lifeSpan.disp.avg}}
+            <div class="bottom-stat">
+              <div
+                class="line-chart pastel-white background"
+                style="left: {{this.lifeSpan.disp.low}}%; width: {{this.lifeSpan.disp.range}}%;"
+                >
+              </div>
+              <div class="dot-wrapper">
+                <i
+                  class="fa fa-circle fa-fw chart-dot pastel-white text"
+                  aria-hidden="true"
+                  style="left: {{this.lifeSpan.disp.avg}}%;"
+                  ></i>
+              </div>
+            </div>
+          {{/if}}
+
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+    </div>
+  </div>
+  <div class="clear">
+
+  <div class="gallery">
+    <h2 class="muted">Front</h2>
+    {{#each this.images.images as |image|}}
+      {{#if image.url}}
+        <a href="?front={{encodeURI image.file}}">
+          <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
+        </a>
+      {{/if}}
+    {{/each}}
+    <div class="positioner">
+      <div>
+        <a class="left-top" href="?fpos=left-top">&nbsp;</a>
+        <a class="center-top" href="?fpos=center-top">&nbsp;</a>
+        <a class="right-top" href="?fpos=right-top">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-center" href="?fpos=left-center">&nbsp;</a>
+        <a class="center-center" href="?fpos=center-center">&nbsp;</a>
+        <a class="right-center" href="?fpos=right-center">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-bottom" href="?fpos=left-bottom">&nbsp;</a>
+        <a class="center-bottom" href="?fpos=center-bottom">&nbsp;</a>
+        <a class="right-bottom" href="?fpos=right-bottom">&nbsp;</a>
+      </div>
+    </div>
+    <a class="rotate" href="?rotate=true">
+      <i class="fa fa-rotate-left muted" aria-hidden="true"></i>
+    </a>
+    <h2 class="muted">Back</h2>
+    {{#each this.images.images as |image|}}
+      {{#if image.url}}
+        <a href="?back={{encodeURI image.file}}">
+          <img src="{{image.url}}" alt="{{image.file}}" title="{{image.file}}"/>
+        </a>
+      {{/if}}
+    {{/each}}
+    <div class="positioner">
+      <div>
+        <a class="left-top" href="?bpos=left-top">&nbsp;</a>
+        <a class="center-top" href="?bpos=center-top">&nbsp;</a>
+        <a class="right-top" href="?bpos=right-top">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-center" href="?bpos=left-center">&nbsp;</a>
+        <a class="center-center" href="?bpos=center-center">&nbsp;</a>
+        <a class="right-center" href="?bpos=right-center">&nbsp;</a>
+      </div>
+      <div>
+        <a class="left-bottom" href="?bpos=left-bottom">&nbsp;</a>
+        <a class="center-bottom" href="?bpos=center-bottom">&nbsp;</a>
+        <a class="right-bottom" href="?bpos=right-bottom">&nbsp;</a>
+      </div>
+    </div>
+
+  </div>
+    <pre>{{stringify this.lifeSpan 2}}</pre>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <pre>{{stringify this 2}}</pre>
+  </div>
+{{/withFirst}}
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/scripts/cards.js"></script>
