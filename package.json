@@ -41,6 +41,8 @@
     "express": "~4.13.4",
     "handlebars-helpers": "^0.7.3",
     "hbs": "~4.0.0",
+    "hyphenation.en-us": "^0.2.1",
+    "hypher": "^0.2.4",
     "lunr": "^0.7.1",
     "morgan": "~1.7.0",
     "nano": "^6.2.0",

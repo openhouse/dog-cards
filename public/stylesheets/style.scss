@@ -91,6 +91,8 @@ $colors:(
   'gray2': #b4b3b1,
   'scarlet': #e52b3b,
   'blue-green': #018c85,
+	'pale-vermillion': #fe998f,
+	'pale-green': #b9eaca,
 );
 
 @each $name, $value in $colors {

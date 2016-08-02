@@ -4,6 +4,9 @@ const express = require('express');
 const router = express.Router();
 const url = require('url');
 const slug = require('slug');
+const Hypher = require('hypher');
+const english = require('hyphenation.en-us');
+const h = new Hypher(english);
 
 const nano = require('nano')(process.env.DB_HOST);
 const couchDb = nano.db.use(process.env.DATABASE);
@@ -215,6 +218,21 @@ router.get('/', function (req, res, next) {
         breed.lifeSpan = getBreedInfo(doc, 'lifeSpan', wikiProperties.lifeSpan);
         breed.images = getBreedImages(doc);
         breed.text = doc.wtf.text;
+
+        if (breed.text) {
+          breed.hyphenated = {};
+          for (let section in breed.text) {
+            let sentences = [];
+            breed.text[section].forEach(function (raw) {
+              sentences.push({
+                text: h.hyphenateText(raw.text),
+              });
+            });
+
+            breed.hyphenated[section] = sentences;
+          }
+        }
+
         if (doc.dt) {
           breed.dt = {};
           breed.dt.info = {};

@@ -54,16 +54,16 @@
                 </div>
               {{/or}}
               <div class="paragraphs">
-                {{#if this.text.Intro}}
+                {{#if this.hyphenated.Intro}}
                   <div class="summary">
-                    {{#each this.text.Intro as |line|}}
+                    {{#each this.hyphenated.Intro as |line|}}
                       <span class="sentence hide">{{line.text}}</span>
                     {{/each}}
                   </div>
                 {{/if}}
-                {{#if this.text.Temperament}}
+                {{#if this.hyphenated.Temperament}}
                   <div class="temperment">
-                    {{#each this.text.Temperament as |line|}}
+                    {{#each this.hyphenated.Temperament as |line|}}
                       <span class="sentence hide">{{line.text}}</span>
 
                     {{/each}}
@@ -168,7 +168,7 @@
               </div>
               <div class="dot-wrapper">
                 <i
-                  class="fa fa-circle fa-fw chart-dot pastel-scarlet text"
+                  class="fa fa-circle fa-fw chart-dot pastel-scarlet text" --}}
                   aria-hidden="true"
                   style="top: {{this.height.disp.avg}}%;"
                   ></i>
