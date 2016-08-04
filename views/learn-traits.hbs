@@ -1,0 +1,24 @@
+<pre>testResult: {{stringify testResult 2}}</pre>
+<pre>meta: {{stringify meta 2}}</pre>
+{{!--
+{{#each docs}}
+  <dl>
+    <dt style="color: #d0d0d0;">{{this.table.Breed}}:</dt>
+    <dd>
+      <pre>{{stringify this.aspects 2}}</pre>
+
+    </dd>
+  </dl>
+{{/each}}
+--}}
+
+{{#unless done}}
+  <script>
+    window.location.assign('{{{meta.next}}}');
+  </script>
+{{else}}
+  <h1>Done!</h1>
+{{/unless}}
+{{!--
+
+--}}

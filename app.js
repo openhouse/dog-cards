@@ -15,6 +15,8 @@ var dogtime = require('./routes/dogtime');
 var matchStars = require('./routes/match-stars');
 var cards = require('./routes/cards');
 var wikidata = require('./routes/wikidata');
+var learnTraits = require('./routes/learn-traits');
+var genTraits = require('./routes/gen-traits');
 
 var app = express();
 app.use(require('connect-livereload')());
@@ -61,6 +63,8 @@ app.use('/cards/:page', cards);
 app.use('/cards', cards);
 app.use('/wikidata/:page', wikidata);
 app.use('/wikidata', wikidata);
+app.use('/learn-traits', learnTraits);
+app.use('/gen-traits', genTraits);
 
 // app.use('/cards', cards);
 

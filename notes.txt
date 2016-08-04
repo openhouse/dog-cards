@@ -2,5 +2,7 @@ Order for importing
 - capture
 - dogtime
 - match stars
+- learn-traits
+- gen-traits
 - wikidata
 - map
