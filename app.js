@@ -50,7 +50,7 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+// app.use('/', routes);
 app.use('/users', users);
 app.use('/breeds', breeds);
 app.use('/capture', capture);

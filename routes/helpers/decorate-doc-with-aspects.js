@@ -21,21 +21,44 @@ module.exports = function decorateDocWithAspects(doc) {
   let wikiAspects = [
     'Intro',
     'Temperament',
-    'Appearance',
-    'Health and temperament',
-    'Description',
-    'As pets',
-    'Behavior',
-    'Breed description',
-    'Character and behavior',
-    'Characteristics',
-    'Personality',
-    /*----*/
     'History',
-    'History and use',
-    'Activities',
+    'Appearance',
     'Health',
-    'History of the variety',
+
+    'Description',
+    'Coat', // coat
+    'Size', // size
+    'Activities', // 25
+    'Grooming', // grooming
+    'Care', // care
+    'Lifespan', // lifespan
+    'Coat and color', // coatandcolor
+    'Color', // color
+    'Hunting', // hunting
+    'Training', // training
+    'Origins', // origin
+    'Exercise', // exercise
+
+    // 'Intro',
+    // 'Temperament',
+    // 'Appearance',
+    // 'Health and temperament',
+    // 'Description',
+    // 'As pets',
+    // 'Behavior',
+    // 'Breed description',
+    // 'Character and behavior',
+    // 'Characteristics',
+    // 'Personality',
+    // /*----*/
+    // 'History',
+    // 'History and use',
+    // 'Activities',
+    // 'Health',
+    // 'History of the variety',
+    // /*----*/
+    // 'Requirements',
+
   ];
 
   if (doc.wtf) {

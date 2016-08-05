@@ -44,6 +44,7 @@ function getTraits(body) {
   // populate traits
   let traits = {};
   tests.forEach(function (test) {
+
     for (let testTrait in test.matched.traits) {
       if (!traits.hasOwnProperty(testTrait)) {
         traits[testTrait] = [];
@@ -64,6 +65,28 @@ function getTraits(body) {
       };
       traits[testTrait].push(result);
     }
+
+    for (let testTrait in test.matched.summaries) {
+      if (!traits.hasOwnProperty(testTrait)) {
+        traits[testTrait] = [];
+      }
+
+      let result = {
+        confidence: wilson(
+          test.matched.summaries[testTrait].correct,
+          test.matched.summaries[testTrait].possible,
+          0.95,
+          509
+        ).low,
+        aspects: test.testApsects,
+        reach: test.count,
+        n: test.matched.summaries[testTrait].possible,
+        percent: test.matched.summaries[testTrait].percent,
+
+      };
+      traits[testTrait].push(result);
+    }
+
   });
 
   // sort by confidence then minimum aspects
@@ -156,6 +179,7 @@ function createClassifierAsync(trait, traitRecipe, breeds) {
   breeds.forEach(function (doc) {
     if (doc.hasOwnProperty('dt')) {
       let docTokens = getTestTokens(doc, traitRecipe.aspects);
+
       for (let dtTraitName in doc.dt.info) {
         let shortDtTrait = sluggify(dtTraitName);
         if (shortDtTrait === trait) {
@@ -166,6 +190,18 @@ function createClassifierAsync(trait, traitRecipe, breeds) {
           }
         }
       }
+
+      for (let dtTraitName in doc.dt.summary) {
+        let shortDtTrait = 'SUMMARY_' + sluggify(dtTraitName);
+        if (shortDtTrait === trait) {
+          if (doc.dt.summary[dtTraitName] >= 4) {
+            classifier.addDocument(docTokens, trait);
+          } else {
+            classifier.addDocument(docTokens, 'NOT_' + trait);
+          }
+        }
+      }
+
     }
   });
 
@@ -224,7 +260,13 @@ router.get('/', function (req, res, next) {
 
       let avaliableAspects = [];
       for (let aspect in breed.aspects) {
-        avaliableAspects.push(aspect);
+        // if the breed is extinct, do not use the breedGroup aspect
+        if (aspect === 'breedgroup' && breed.aspects[aspect] === 'Extinct') {
+          log('EXTINCT BREED');
+          delete breed.aspects.breedgroup;
+        } else {
+          avaliableAspects.push(aspect);
+        }
       }
 
       if (avaliableAspects.length === 0) {
@@ -271,6 +313,7 @@ router.get('/', function (req, res, next) {
           log('loadedClassifiers');
           breed.genTraits = {};
           breed.genTraits.info = {};
+
           for (let trait in loadedClassifiers) {
 
             let classifier = loadedClassifiers[trait];
@@ -288,6 +331,35 @@ router.get('/', function (req, res, next) {
             }
           }
 
+          // add confidence info with generated breed traits
+          let total = 0;
+          let count = 0;
+          let min = 2;
+          let confidences = [];
+          let traitConfidence = {};
+          let traitAspects = {};
+          for (let trait in chosenRecipes) {
+            count++;
+            total += chosenRecipes[trait].confidence;
+            if (chosenRecipes[trait].confidence < min) {
+              min = chosenRecipes[trait].confidence;
+            }
+
+            traitConfidence[trait] = chosenRecipes[trait].confidence;
+            confidences.push(chosenRecipes[trait].confidence);
+            traitAspects[trait] = chosenRecipes[trait].aspects;
+
+          }
+
+          breed.genTraits.confidence = {
+            avg: total / count,
+            min: min,
+            median: confidences[Math.round(confidences.length / 2)],
+            traits: traitConfidence,
+            aspects: traitAspects,
+          };
+
+          let debugAspects = breed.aspects;
           delete breed.aspects;
 
           // save breed
@@ -304,12 +376,14 @@ router.get('/', function (req, res, next) {
               breed: breed,
               traits: traits,
               chosenRecipes: chosenRecipes,
+              debugAspects: debugAspects,
+              avaliableAspects: avaliableAspects,
             },
             meta: {
               page: page,
               pages: pages,
               next: 'gen-traits?page=' + (page + 1),
-              done: (page === pages),
+              done: (page >= pages),
             },
           });
         });

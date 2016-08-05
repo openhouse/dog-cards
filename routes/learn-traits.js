@@ -46,10 +46,39 @@ function addDocs2Classifiers(docs, testApsects) {
               classifiers[shortTrait].addDocument(testTokens, 'NOT_' + shortTrait);
             }
           }
-
         }
       }
+    }
+  });
 
+  return classifiers;
+}
+
+function addDocSummaries2Classifiers(docs, testApsects, classifiers) {
+  // extend classifiers
+  log('Training: adding');
+  docs.forEach(function (doc) {
+    // join aspects to make test string
+    if (doc.dt && doc.dt.hasOwnProperty('summary')) {
+
+      let testTokens = getTestTokens(doc, testApsects);
+      if (testTokens.length > 0) {
+
+        for (let trait in doc.dt.summary) {
+          let shortTrait = 'SUMMARY_' + sluggify(trait);
+
+          // create a classifier for each trait
+          if (!classifiers.hasOwnProperty(shortTrait)) {
+            classifiers[shortTrait] = new natural.BayesClassifier();
+          }
+
+          if (doc.dt.summary[trait] >= 4) {
+            classifiers[shortTrait].addDocument(testTokens, shortTrait);
+          } else {
+            classifiers[shortTrait].addDocument(testTokens, 'NOT_' + shortTrait);
+          }
+        }
+      }
     }
   });
 
@@ -66,7 +95,7 @@ function trainClassifiers(classifiers) {
   return classifiers;
 }
 
-function getTestResults(docs, testApsects, classifiers) {
+function getTestResults(docs, testApsects, classifiers, summariesOnly) {
   // get test results by comparing actual to generated traits
   let count = 0;  // possible to generate for with these aspects
   let matched = {
@@ -74,6 +103,7 @@ function getTestResults(docs, testApsects, classifiers) {
     correct: 0, // traits correctly matched of available
     n: 0,       // number of docs eligible to have matches
     traits: {},
+    summaries: {},
   };
   docs.forEach(function (doc, index) {
     // the doc must have at least one of the test aspects
@@ -82,7 +112,7 @@ function getTestResults(docs, testApsects, classifiers) {
       count++;
 
       // only test docs that have dt info
-      if (doc.dt && doc.dt.hasOwnProperty('info')) {
+      if (doc.dt && (doc.dt.hasOwnProperty('info') || doc.dt.hasOwnProperty('summary'))) {
         matched.n++;
         let gen = {};
         for (let classifier in classifiers) {
@@ -100,27 +130,54 @@ function getTestResults(docs, testApsects, classifiers) {
         }
 
         doc.gen = gen;
-        for (let traitName in doc.dt.info) {
+        if (!summariesOnly) {
+          for (let traitName in doc.dt.info) {
+            matched.possible++;
+            let traitSlug = sluggify(traitName);
+            if (!matched.traits.hasOwnProperty(traitSlug)) {
+              matched.traits[traitSlug] = {
+                possible: 0,
+                correct: 0,
+                n: 0,
+              };
+            }
+
+            matched.traits[traitSlug].possible++;
+            if (doc.dt.info[traitName] >= 4) {
+              if (doc.gen[traitSlug] === true) {
+                matched.correct++;
+                matched.traits[traitSlug].correct++;
+              }
+            } else {
+              if (doc.gen[traitSlug] === false) {
+                matched.correct++;
+                matched.traits[traitSlug].correct++;
+              }
+            }
+          }
+        }
+
+        for (let traitName in doc.dt.summary) {
           matched.possible++;
-          let traitSlug = sluggify(traitName);
-          if (!matched.traits.hasOwnProperty(traitSlug)) {
-            matched.traits[traitSlug] = {
+          let traitSlug = 'SUMMARY_' + sluggify(traitName);
+          if (!matched.summaries.hasOwnProperty(traitSlug)) {
+            matched.summaries[traitSlug] = {
               possible: 0,
               correct: 0,
               n: 0,
             };
           }
 
-          matched.traits[traitSlug].possible++;
-          if (doc.dt.info[traitName] >= 4) {
+          matched.summaries[traitSlug].possible++;
+          if (doc.dt.summary[traitName] >= 4) {
             if (doc.gen[traitSlug] === true) {
               matched.correct++;
-              matched.traits[traitSlug].correct++;
+              matched.summaries[traitSlug].correct++;
             }
           } else {
             if (doc.gen[traitSlug] === false) {
               matched.correct++;
-              matched.traits[traitSlug].correct++;
+              matched.summaries[traitSlug].correct++;
             }
           }
         }
@@ -134,19 +191,29 @@ function getTestResults(docs, testApsects, classifiers) {
     matched.traits[trait].percent = matched.traits[trait].correct / matched.traits[trait].possible;
   }
 
+  for (let trait in matched.summaries) {
+    matched.summaries[trait].percent = matched.summaries[trait].correct / matched.summaries[trait].possible;
+  }
+
   return {
     count: count,
     matched: matched,
   };
 }
 
-function runTest(docs, testApsects) {
+function runTest(docs, testApsects, summariesOnly) {
   if (testApsects) {
     let id = testApsects.join('_');
-    let classifiers = addDocs2Classifiers(docs, testApsects);
+    let classifiers = {};
+    if (!summariesOnly) {
+      classifiers = addDocs2Classifiers(docs, testApsects);
+    }
+
+    classifiers = addDocSummaries2Classifiers(docs, testApsects, classifiers);
+
     classifiers = trainClassifiers(classifiers);
     log('Get test results');
-    let testResults = getTestResults(docs, testApsects, classifiers);
+    let testResults = getTestResults(docs, testApsects, classifiers, summariesOnly);
 
     return {
       id: id,
@@ -181,30 +248,25 @@ router.get('/', function (req, res, next) {
     });
 
     let allAspects = [
-      'breedGroups',
-      'Intro',
-      'Temperament',
-      'Appearance',
-      'Description',
-
-      // 'Characteristics', // 2
-      // 'Personality', // 2
-      /*----*/
-
-      // 'Health and temperament',
-      // 'As pets',
-      // 'Behavior',
-      // 'Breed description',
-      // 'Character and behavior',
-      /*========================*/
-      'History',
-      'Activities', // 25
-      'Health',
-      /*----*/
-
-      // 'History and use',
-      // 'History of the variety',
-
+      'breedGroups', //         5689
+      'Appearance', //          5013
+      'Description', //         4717
+      'Intro', //               4202
+      'Temperament', //         3287
+      'Activities', // *25      2621
+      'Care', // care           1685
+      'Coat', // coat           1362
+      'Health', //              717
+      'Color', // color         641
+      'Exercise', // exercise   631
+      'Training', // training   556
+      'History', //             479
+      'Hunting', // hunting     360
+      'Grooming', // grooming   284
+      'Lifespan', // lifespan   271
+      'Origins', // origin      205
+      'Size', // size           143
+      'Coat and color', // coatandcolor 45
     ];
 
     let slugAspects = [];
@@ -220,25 +282,98 @@ router.get('/', function (req, res, next) {
       cmb.push([slugAspect]);
     });
     */
-
+    /*
+    // sort combinations starting with a smaller number of aspects
     cmb.sort(function (a, b) {
       return a.length - b.length;
     });
+    */
 
-    // manually add 'all' as an aspect to run the entire text
+    // manually add 'all'
+    // No need to combine with other aspects, it's the whole text
     cmb[0] = ['all'];
     cmb.unshift([]);
+
     let pages = cmb.length;
 
     // use database cache if available
     log(cmb[page]);
     let id = cmb[page].join('_');
 
-    traitTestsDB.get(id, function (error, testResult) {
-      if (error) {
+    // look for the test in the db by matching the aspects in any order
+    traitTestsDB.list({ include_docs: true }, function (err, body) {
+      let allTests = [];
+      body.rows.forEach(function (row) {
+        let { doc } = row;
+        if (doc.matched) { // filter out design docs
+          allTests.push(doc);
+        }
+      });
+
+      let testResult = null;
+      let error = false;
+      allTests.forEach(function (test) {
+        let cmbObj = {};
+        cmb[page].forEach(function (cmbAspect) {
+          cmbObj[cmbAspect] = false;
+        });
+
+        // log(test.testApsects);
+        test.testApsects.forEach(function (testAspect) {
+          if (cmbObj.hasOwnProperty(testAspect)) {
+            cmbObj[testAspect] = true;
+          }
+        });
+
+        let found = true;
+        for (let cmbAspect in cmbObj) {
+          if (!cmbObj[cmbAspect]) {
+            found = false;
+          }
+        }
+
+        if (found && (test.testApsects.length === cmb[page].length)) {
+          log('matching test found');
+          log(cmb[page]);
+          log(test.testApsects);
+          log('------------');
+
+          testResult = test;
+        }
+
+      });
+
+      if (testResult === null) {
+        error = 'test does not exist in db';
+      }
+
+      // log(testResult);
+      //});
+
+      // traitTestsDB.get(id, function (error, testResult) {
+      /*
+       ok, i messed up and didn't include the dt summaries at first
+       so now i'm coming back and running over the data to patch in summaries
+       that's what this summariesOnly mode is about.
+       but going forward it should get both dt.info and dt.summary
+     */
+      if (error || !testResult.matched.hasOwnProperty('summaries')) {
+        log('error:', error);
+        let summariesOnly = false;
+        let origTestResult = testResult;
+        if (!error) {
+          summariesOnly = true;
+        }
+
         log('RUNNING TEST: ' + id);
-        testResult = runTest(docs, cmb[page]);
+        testResult = runTest(docs, cmb[page], summariesOnly);
         testResult.testPage = page;
+
+        if (summariesOnly) {
+          origTestResult.matched.summaries = testResult.matched.summaries;
+          testResult = origTestResult;
+        }
+
         log('SAVING RESULTS');
         traitTestsDB.update(testResult, testResult.id, function (err, body) {
           log('updated: ', testResult.id);
@@ -246,8 +381,11 @@ router.get('/', function (req, res, next) {
             log(err);
           }
         });
+        /*
 
+        */
       } else {
+        // previous test
         log('USING CACHED');
       }
 
@@ -258,6 +396,8 @@ router.get('/', function (req, res, next) {
           slugAspects: slugAspects,
         },
         testResult: testResult,
+        cmb: cmb,
+
         meta: {
           page: page,
           pages: pages,

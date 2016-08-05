@@ -72,7 +72,6 @@
               </div>
             </div>
           </div>
-
           {{#if this.dt}}
             <div class="icons">
               {{#gt this.dt.summary.Adaptability 4}}
@@ -81,17 +80,17 @@
               {{#gt this.dt.info.FriendlyTowardStrangers 4}}
                 <i class="fa fa-user-secret fa-fw" aria-hidden="true"></i>
               {{/gt}}
-              {{#gt this.dt.info.EasyToTrain 4}}
-                <i class="fa fa-graduation-cap fa-fw" aria-hidden="true"></i>
-              {{/gt}}
-              {{#gt this.dt.info.Intelligence 4}}
-                <i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i>
-              {{/gt}}
               {{#gt this.dt.info.DogFriendly 4}}
                 <i class="fa fa-paw fa-fw" aria-hidden="true"></i>
               {{/gt}}
               {{#gt this.dt.info.EnergyLevel 4}}
                 <i class="fa fa-coffee fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.EasyToTrain 4}}
+                <i class="fa fa-graduation-cap fa-fw" aria-hidden="true"></i>
+              {{/gt}}
+              {{#gt this.dt.info.Intelligence 4}}
+                <i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i>
               {{/gt}}
               {{#gt this.dt.info.ToleratesBeingAlone 4}}
                 <i class="fa fa-street-view fa-fw" aria-hidden="true"></i>
@@ -99,17 +98,18 @@
               {{#gt this.dt.info.GeneralHealth 4}}
                 <i class="fa fa-heartbeat fa-fw" aria-hidden="true"></i>
               {{/gt}}
-              {{#gt this.dt.info.AdaptsWelltoApartmentLiving 4}}
-                <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
-              {{/gt}}
               {{#gt this.dt.info.AffectionatewithFamily 4}}
                 <i class="fa fa-users fa-fw" aria-hidden="true"></i>
               {{/gt}}
-              {{#gt this.dt.summary.AllAroundFriendliness 4}}
-                <i class="material-icons">local_florist</i>
+
+              {{#gt this.dt.info.AdaptsWelltoApartmentLiving 4}}
+                <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
               {{/gt}}
               {{#gt this.dt.info.IncrediblyKidFriendlyDogs 4}}
                 <i class="material-icons">child_friendly</i>
+              {{/gt}}
+              {{#gt this.dt.summary.AllAroundFriendliness 4}}
+                <i class="material-icons">local_florist</i>
               {{/gt}}
               {{#gt this.dt.info.TendencyToBarkOrHowl 4}}
                 <i class="fa fa-bullhorn " aria-hidden="true"></i>
@@ -157,6 +157,99 @@
                 <i class="fa fa-tint fa-fw" aria-hidden="true"></i>
               {{/gt}}
             </div>
+          {{else}}
+            {{!--
+            {{#gt this.genTraits.confidence.min 0.7}}
+              {{#gt this.genTraits.confidence.avg 0.85}}
+                {{#gt this.genTraits.confidence.median 0.95}}
+            --}}
+                  <div class="icons muted">
+                    {{#if this.genTraits.info.SUMMARY_adaptability }}
+                      <i class="fa fa-refresh fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.friendlytowardstranger }}
+                      <i class="fa fa-user-secret fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.friendly }}
+                      <i class="fa fa-paw fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.energylevel }}
+                      <i class="fa fa-coffee fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.easytotrain }}
+                      <i class="fa fa-graduation-cap fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.intelligence }}
+                      <i class="fa fa-lightbulb-o fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.toleratesbeingalone }}
+                      <i class="fa fa-street-view fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.generalhealth }}
+                      <i class="fa fa-heartbeat fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.affectionatewithfamily }}
+                      <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.adaptswelltoapartmentliving }}
+                      <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.incrediblykidfriendly }}
+                      <i class="material-icons">child_friendly</i>
+                    {{/if}}
+                    {{#if this.genTraits.info.SUMMARY_allaroundfriendlines }}
+                      <i class="material-icons">local_florist</i>
+                    {{/if}}
+                    {{#if this.genTraits.info.tendencytobarkorhowl }}
+                      <i class="fa fa-bullhorn " aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.goodfornoviceowner }}
+                      <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.sensitivitylevel }}
+                      <i class="fa fa-frown-o fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.exerciseneed }}
+                      <i class="material-icons">directions_run</i>
+                    {{/if}}
+                    {{#if this.genTraits.info.preydrive }}
+                      <i class="fa fa-bug fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.tolerateshotweather }}
+                      <i class="fa fa-sun-o fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.easytogroom }}
+                      <i class="fa fa-scissors fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.intensity }}
+                      <i class="fa fa-bolt fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.amountofshedding }}
+                      <i class="material-icons">gesture</i>
+                    {{/if}}
+                    {{#if this.genTraits.info.potentialforplayfulnes }}
+                      <i class="material-icons">bubble_chart</i>
+                    {{/if}}
+                    {{#if this.genTraits.info.wanderlustpotential }}
+                      <i class="fa fa-chain-broken fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.potentialformouthines }}
+                      <i class="fa fa-birthday-cake fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.toleratescoldweather }}
+                      <i class="material-icons">ac_unit</i>
+                    {{/if}}
+                    {{#if this.genTraits.info.potentialforweightgain }}
+                      <i class="fa fa-balance-scale fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                    {{#if this.genTraits.info.droolingpotential }}
+                      <i class="fa fa-tint fa-fw" aria-hidden="true"></i>
+                    {{/if}}
+                  </div>
+                  {{!--
+                {{/gt}}
+              {{/gt}}
+            {{/gt}}--}}
           {{/if}}
 
           {{#if this.height.disp.avg}}
@@ -284,6 +377,9 @@
     <br/>
     <br/>
     <br/>
+
+    <pre>{{stringify this.genTraits 2}}</pre>
+
 
     <pre>{{stringify this 2}}</pre>
   </div>

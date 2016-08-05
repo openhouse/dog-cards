@@ -135,7 +135,7 @@ body {
     padding: 14px;
     height: calc(100% - 28px); }
   .card--back .content {
-    height: calc(100% - 14px);
+    height: calc(100% - 21px);
     text-rendering: optimizeLegibility; }
   .card--back .img {
     position: absolute;

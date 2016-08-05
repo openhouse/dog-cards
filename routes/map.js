@@ -7,6 +7,7 @@ const slug = require('slug');
 const Hypher = require('hypher');
 const english = require('hyphenation.en-us');
 const h = new Hypher(english);
+const natural = require('natural');
 
 const nano = require('nano')(process.env.DB_HOST);
 const couchDb = nano.db.use(process.env.DATABASE);
@@ -201,9 +202,14 @@ router.get('/', function (req, res, next) {
 
   couchDb.list({ include_docs: true }, function (err, body) {
     let breeds = [];
-
+    let docs = [];
     body.rows.forEach(function (row) {
       let { doc } = row;
+      docs.push(doc);
+    });
+
+    // classifyTraits(docs);
+    docs.forEach(function (doc) {
       if (doc.table) {
 
         let breed = {};
@@ -218,6 +224,7 @@ router.get('/', function (req, res, next) {
         breed.lifeSpan = getBreedInfo(doc, 'lifeSpan', wikiProperties.lifeSpan);
         breed.images = getBreedImages(doc);
         breed.text = doc.wtf.text;
+        breed.genTraits = doc.genTraits;
 
         if (breed.text) {
           breed.hyphenated = {};
@@ -265,9 +272,8 @@ router.get('/', function (req, res, next) {
 
     // https://upload.wikimedia.org/wikipedia/en/f/fc/Bullenbeisser.jpg
     //   https://upload.wikimedia.org/wikipedia/commons/f/fc/Bullenbeisser.jpg
-    // save to heartDogsDb
 
-    // save to database
+    // save to heartDogsDb
     Promise.reduce(breeds, function (total, breed) {
       return heartDogsDb.updateAsync(breed, breed.id)
         .then(function (item) {
@@ -316,6 +322,7 @@ router.get('/', function (req, res, next) {
       breeds: breeds,
       breed: [breeds[page]],
       stats: {
+        //  class: classifier.getClassifications(breeds[0].wiki.content),
       },
       meta: {
         pages: breeds.length,

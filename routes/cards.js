@@ -167,6 +167,14 @@ router.get('/', function (req, res, next) {
       };
     }
 
+    if (breed.hasOwnProperty('genTraits')) {
+      for (let trait in breed.genTraits.confidence.traits) {
+        if (breed.genTraits.confidence.traits[trait] < 0.9) {
+          delete breed.genTraits.info[trait];
+        }
+      }
+    }
+
     res.render('cards', {
       raw: body,
       breed: [breed],
