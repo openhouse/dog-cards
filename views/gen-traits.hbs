@@ -1,0 +1,26 @@
+<h1>{{debug.breed._id}}</h1>
+<pre>debugAspects: {{stringify debug.debugAspects 2}}</pre>
+<pre>avaliableAspects: {{stringify debug.avaliableAspects 2}}</pre>
+
+
+<pre>breed: {{stringify debug.breed.genTraits.confidence.aspects 2}}</pre>
+<pre>meta: {{stringify meta 2}}</pre>
+
+
+{{#unless meta.done}}
+  <script>
+    window.location.assign('{{{meta.next}}}');
+  </script>
+{{else}}
+  <h1>Done!</h1>
+{{/unless}}
+{{!--
+
+
+<pre>chosenRecipes: {{stringify debug.chosenRecipes 2}}</pre>
+
+<pre>{{#forIn debug.traits}}{{@key}}: [{{#withFirst this}}{{stringify this 2}}{{/withFirst}}],
+{{/forIn}}</pre>
+<pre>breed: {{stringify debug.breed.aspects 2}}</pre>
+
+--}}

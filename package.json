@@ -21,7 +21,9 @@
     "gulp-live-server": "0.0.30",
     "gulp-livereload": "^3.8.1",
     "gulp-mocha": "^2.2.0",
+    "js-combinatorics": "^0.5.2",
     "mocha": "^2.5.3",
+    "natural": "^0.4.0",
     "run-sequence": "^1.2.2",
     "slug": "^0.9.1",
     "tiny-lr": "^0.2.1",
@@ -53,6 +55,7 @@
     "serve-favicon": "~2.3.0",
     "table-scraper": "0.0.2",
     "tabletojson": "^0.4.0",
+    "wilson-interval": "^1.1.9",
     "wtf_wikipedia": "^0.5.1-g"
   }
 }

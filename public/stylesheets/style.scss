@@ -169,7 +169,7 @@ body {
 
 
     .content {
-      height: calc(100% - #{$gridUnit * 2});
+      height: calc(100% - #{$gridUnit * 3});
       // overflow: hidden;
       text-rendering: optimizeLegibility;
 

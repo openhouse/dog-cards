@@ -1,6 +1,63 @@
+Start
+DEBUG=myapp:* PORT=3010 npm start
+
 Order for importing
 - capture
 - dogtime
 - match stars
+- learn-traits
+- gen-traits
 - wikidata
 - map
+
+
+
+
+breedgroup
+appearance
+description
+intro
+temperament
+activitie
+care
+coat
+health
+color
+exercise
+training
+history
+all
+hunting
+grooming
+lifespan
+origin
+size
+coatandcolor
+
+
+
+------
+breedgroup
+appearance
+description
+intro
+temperament
+activitie
+care
+characteristic
+coat
+health
+personality
+color
+exercise
+training
+history
+all
+aspet
+healthandtemperament
+hunting
+grooming
+lifespan
+origin
+size
+coatandcolor
