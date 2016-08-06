@@ -1,5 +1,10 @@
-<pre>{{stringify stats 2}}</pre>
 
+{{#each breeds as |breed|}}
+  <pre>{{breed.breed}}: {{stringify breed.height 2}}</pre>
+
+{{/each}}
+{{!--
+<pre>{{stringify stats 2}}</pre>
 
 {{#each breeds}}
   <dl>
@@ -13,7 +18,7 @@
   </dl>
 {{/each}}
 
-
+--}}
 {{!-- PRINT JSON
 {{#each breeds}}
   <pre>{{stringify this 2}}</pre>

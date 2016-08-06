@@ -109,7 +109,6 @@ function getBreedImages(doc) {
     images = doc.wtf.images;
   }
 
-
   // add the infobox image
   let infobox = doc.wtf.infobox;
   if (infobox) {
@@ -219,9 +218,11 @@ router.get('/', function (req, res, next) {
         breed.id = slug(breed.title);
         breed.summary = doc.wiki.summary;
         breed.groups = getBreedGroups(doc.wtf, doc.wiki, doc.table);
+
         breed.weight = getBreedInfo(doc, 'weight', wikiProperties.weight);
         breed.height = getBreedInfo(doc, 'height', wikiProperties.height);
         breed.lifeSpan = getBreedInfo(doc, 'lifeSpan', wikiProperties.lifeSpan);
+
         breed.images = getBreedImages(doc);
         breed.text = doc.wtf.text;
         breed.genTraits = doc.genTraits;
@@ -272,7 +273,6 @@ router.get('/', function (req, res, next) {
 
     // https://upload.wikimedia.org/wikipedia/en/f/fc/Bullenbeisser.jpg
     //   https://upload.wikimedia.org/wikipedia/commons/f/fc/Bullenbeisser.jpg
-
     // save to heartDogsDb
     Promise.reduce(breeds, function (total, breed) {
       return heartDogsDb.updateAsync(breed, breed.id)
@@ -286,6 +286,8 @@ router.get('/', function (req, res, next) {
     }, 0).then(function (total) {
       log('promises done!', total);
     });
+    /*
+*/
 
     /*
     if (a.height && b.height) {

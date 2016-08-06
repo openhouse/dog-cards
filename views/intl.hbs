@@ -1,0 +1,36 @@
+<h1>{{breed._id}}</h1>
+<h1>{{wikiResults.length}}</h1>
+{{!--
+'weight',
+'maleweight',
+'femaleweight',
+'height',
+'maleheight',
+'femaleheight',
+'life_span',
+
+--}}
+{{#each wikiResults as |result|}}
+  {{weight.text}} <br/>
+  {{maleweight.text}} <br/>
+  {{femaleweight.text}} <br/>
+  {{height.text}} <br/>
+  {{maleheight.text}} <br/>
+  {{femaleheight.text}} <br/>
+  {{life_span.text}} <br/>
+<hr>
+{{/each}}
+<br/>
+<br/><br/><br/><br/><br/><br/><br/>
+<pre>wikiResults: {{stringify wikiResults 2}}</pre>
+
+<pre>meta: {{stringify meta 2}}</pre>
+hello
+
+{{#unless meta.done}}
+  <script>
+    window.location.assign('{{{meta.next}}}');
+  </script>
+{{else}}
+  <h1>Done!</h1>
+{{/unless}}

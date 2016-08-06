@@ -5,10 +5,12 @@ let getNumbersFromString = require('./get-numbers-from-string.js');
 
 let { log } = console;
 
-module.exports = function getBreedInfo({ wtf, wiki, table }, type, wikiProperties) {
+module.exports = function getBreedInfo(doc, type, wikiProperties) {
+  let { wtf, wiki, table } = doc;
   let debug = {
     wtf: {},
     wiki: {},
+    intl: {},
   };
   let input = {};
   let result = false;
@@ -28,6 +30,25 @@ module.exports = function getBreedInfo({ wtf, wiki, table }, type, wikiPropertie
 
       debug.wiki[x] = wiki.info[x];
     }
+
+    if (doc.hasOwnProperty('intlInfoboxes')) {
+      let tmpArr = [];
+      doc.intlInfoboxes.forEach(function (intlInfobox) {
+        if (intlInfobox.hasOwnProperty(x)) {
+          if (intlInfobox[x].text.length > 0) {
+            tmpArr.push(intlInfobox[x].text);
+          }
+        }
+      });
+
+      if (tmpArr.length > 0) {
+        input[x] += ' ' + tmpArr.join(' ');
+        input[x] = input[x].trim();
+        debug.intl[x] = tmpArr.join(' ');
+      }
+
+    }
+
   });
 
   // join input properties into one string
@@ -115,6 +136,7 @@ module.exports = function getBreedInfo({ wtf, wiki, table }, type, wikiPropertie
   debug.joined = joined;
   delete debug.wtf;
   delete debug.wiki;
+  delete debug.intl;
 
   return {
     result: result,

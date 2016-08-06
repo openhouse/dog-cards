@@ -152,11 +152,12 @@ router.get('/', function (req, res, next) {
 
                   // add breed wikipedia pages in all languages
                   if (entity.labels) {
-                    wdResult.languageWikis = entity.labels;
+                    wdResult.sitelinks = entity.sitelinks;
                   }
 
                   breed.wikidata = wdResult;
-                  dogcardsDb.update(breed, breed.table.Breed, function (err, body) {
+
+                  dogcardsDb.update(breed, breed._id, function (err, body) {
                     if (err) {
                       console.log(err);
                     }
@@ -166,12 +167,15 @@ router.get('/', function (req, res, next) {
                         wdResult: wdResult,
                       },
                       meta: {
+                        breed: breed,
                         next: page + 1,
                       },
                     });
 
                   });
+                  /*
 
+                  */
                 });
 
               });

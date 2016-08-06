@@ -17,6 +17,7 @@ var cards = require('./routes/cards');
 var wikidata = require('./routes/wikidata');
 var learnTraits = require('./routes/learn-traits');
 var genTraits = require('./routes/gen-traits');
+var intl = require('./routes/intl');
 
 var app = express();
 app.use(require('connect-livereload')());
@@ -65,6 +66,7 @@ app.use('/wikidata/:page', wikidata);
 app.use('/wikidata', wikidata);
 app.use('/learn-traits', learnTraits);
 app.use('/gen-traits', genTraits);
+app.use('/intl', intl);
 
 // app.use('/cards', cards);
 

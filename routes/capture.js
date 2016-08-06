@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const wikiBreedsTable = require('../views/helpers/wikiBreedsTable.js');
+
 /// const getBreedWiki = require('../views/helpers/get-breed-wiki.js');
 const Promise = require('bluebird');
 const wiki = require('wikijs').default;
@@ -11,7 +12,9 @@ const url = require('url');
 
 let couchDb = nano.db.use(process.env.DATABASE);
 couchDb.update = function (obj, key, callback) {
-  let db = this;
+  let _this = this;
+  let db = _this;
+
   db.get(key, function (error, existing) {
     if (!error) {
       obj._rev = existing._rev;
@@ -22,7 +25,6 @@ couchDb.update = function (obj, key, callback) {
 };
 
 const { log } = console;
-
 
 /*
 get The List of Dog Breeds
@@ -64,6 +66,7 @@ router.get(['/', '/*'], function (req, res, next) {
     return new Promise(function (resolve, reject) {
       wtf.from_api(pageName, 'en', function (markup) {
         let wtfResult = wtf.parse(markup);
+
         // log('wtfResult');
         // log(wtfResult);
         resolve(wtfResult);
@@ -72,9 +75,9 @@ router.get(['/', '/*'], function (req, res, next) {
   }
 
   let page = 0;
-  var url_parts = url.parse(req.url, true);
-  if (url_parts.query.page) {
-    page = parseInt(url_parts.query.page);
+  var urlParts = url.parse(req.url, true);
+  if (urlParts.query.page) {
+    page = parseInt(urlParts.query.page);
   }
 
   log(page);
@@ -89,6 +92,7 @@ router.get(['/', '/*'], function (req, res, next) {
       for (k = page; k < (page + 1); k++) {
 
         var breedName = wikiTable[k].Breed;
+
         // log(wikiTable[k]);
         log(breedName);
         breeds[breedName] = {};
@@ -106,6 +110,7 @@ router.get(['/', '/*'], function (req, res, next) {
 
       Promise.props(promises).then(function (all) {
         let dogname = '';
+
         // log('all');
         for (let propertyName in all) {
           dogname = propertyName;
