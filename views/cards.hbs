@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="https://fonts.googleapis.com/css?family=Raleway:800|Slackey" rel="stylesheet">
 
 <div class="nav-btns">
   <div class="left">
@@ -54,6 +55,14 @@
                 </div>
               {{/or}}
               <div class="paragraphs">
+                {{#each this.orderedSections as |section|}}
+                  <div class="section {{section.slug}} hide">
+                    {{#each section.lines as |line|}}
+                      <span class="sentence hide">{{line.text}}</span>
+                    {{/each}}
+                  </div>
+                {{/each}}
+                {{!--
                 {{#if this.hyphenated.Intro}}
                   <div class="summary">
                     {{#each this.hyphenated.Intro as |line|}}
@@ -69,6 +78,7 @@
                     {{/each}}
                   </div>
                 {{/if}}
+                --}}
               </div>
             </div>
           </div>
@@ -375,10 +385,13 @@
   </div>
     <br/>
     <br/>
+
+    <pre>prioritized: {{stringify this.sectionNames 2}}</pre>
+    <pre>available: {{stringify this.allSectionNames 2}}</pre>
+
     <br/>
     <br/>
 
-    <pre>{{stringify this.genTraits 2}}</pre>
 
 
     <pre>{{stringify this 2}}</pre>

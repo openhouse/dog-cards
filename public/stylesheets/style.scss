@@ -169,7 +169,7 @@ body {
 
 
     .content {
-      height: calc(100% - #{$gridUnit * 3});
+      height: calc(100% - #{$gridUnit * 2.2825});
       // overflow: hidden;
       text-rendering: optimizeLegibility;
 
@@ -187,6 +187,9 @@ body {
 
       .name {
         font-family: 'Ideal Sans Black Pro';
+				font-family: 'Slackey', cursive;
+				font-family: 'Raleway', sans-serif;
+
         font-weight: normal;
         font-size: pt2px(11);
         line-height: pt2px(12);
@@ -254,6 +257,14 @@ body {
           }
 					.sentence {
 						// word-break: break-all;
+					}
+					.paragraphs {
+						.section {
+							padding-top: $gridUnit * 2;
+							&:first-of-type {
+								padding-top: 0;
+							}
+						}
 					}
 }
 

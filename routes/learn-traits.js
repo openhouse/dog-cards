@@ -248,25 +248,89 @@ router.get('/', function (req, res, next) {
     });
 
     let allAspects = [
-      'breedGroups', //         5689
-      'Appearance', //          5013
-      'Description', //         4717
-      'Intro', //               4202
-      'Temperament', //         3287
-      'Activities', // *25      2621
-      'Care', // care           1685
-      'Coat', // coat           1362
-      'Health', //              717
-      'Color', // color         641
-      'Exercise', // exercise   631
-      'Training', // training   556
-      'History', //             479
-      'Hunting', // hunting     360
-      'Grooming', // grooming   284
-      'Lifespan', // lifespan   271
-      'Origins', // origin      205
-      'Size', // size           143
-      'Coat and color', // coatandcolor 45
+      'breedGroups', //         5516 | 0  |
+      'Intro', //               4571 | 0  | 215
+      'Appearance', //          4799 | -1 | 155
+      'Temperament', //         3375 | -1 | 179
+      'Description', //         5265 | +1 | 39
+      'History', //              431 | -3 | 173
+      'Coat', // coat           3455 | +3 | 29
+      'Health', //               676 | -5 | 140
+      'Care', // care           3366 | 0  | 21
+      'Activities', // *25      2944 | -2 | 25
+      'Size', // size           2381 | +9 | 28
+      'Exercise', // exercise   1328 | +1 | 10
+      'Coat and color', //      1190 | +8 | 13 coatandcolor
+      'Grooming', // grooming    930 | +3 | 24
+      'Lifespan', // lifespan    649 | +2 | 13
+      'Color', // color          490 | -5 | 11
+      'Hunting', // hunting      308 | -3 | 10
+      'Origins', // origin       193 | -1 | 10
+      'Training', // training     92 | -7 | 10
+
+      /*
+      'breedGroups', //         5516 | 0  |
+      'Description', //         5265 | +1 | 39
+      'Care', // care           3366 | 0  | 21
+      'Coat', // coat           3455 | +3 | 29
+      'Activities', // *25      2944 | -2 | 25
+      'Exercise', // exercise   1328 | +1 | 10
+      'Size', // size           2381 | +9 | 28
+      'Coat and color', //      1190 | +8 | 13 coatandcolor
+      'Hunting', // hunting      308 | -3 | 10
+      'Origins', // origin       193 | -1 | 10
+      'Training', // training     92 | -7 | 10
+      'Color', // color          490 | -5 | 11
+      'Lifespan', // lifespan    649 | +2 | 13
+      'Appearance', //          4799 | -1 | 155
+      'Grooming', // grooming    930 | +3 | 24
+      'Intro', //               4571 | 0  | 215
+      'Temperament', //         3375 | -1 | 179
+      'Health', //               676 | -5 | 140
+      'History', //              431 | -3 | 173
+      */
+
+      // 'breedGroups', //         5516 | 0  |
+      // 'Description', //         5265 | +1 | 39
+      // 'Appearance', //          4799 | -1 | 155
+      // 'Intro', //               4571 | 0  | 215
+      // 'Coat', // coat           3455 | +3 | 29
+      // 'Temperament', //         3375 | -1 | 179
+      // 'Care', // care           3366 | 0  | 21
+      // 'Activities', // *25      2944 | -2 | 25
+      // 'Size', // size           2381 | +9 | 28
+      // 'Exercise', // exercise   1328 | +1 | 10
+      // 'Coat and color', //      1190 | +8 | 13 coatandcolor
+      // 'Grooming', // grooming    930 | +3 | 24
+      // 'Health', //               676 | -5 | 140
+      // 'Lifespan', // lifespan    649 | +2 | 13
+      // 'Color', // color          490 | -5 | 11
+      // 'History', //              431 | -3 | 173
+      // 'Hunting', // hunting      308 | -3 | 10
+      // 'Origins', // origin       193 | -1 | 10
+      // 'Training', // training     92 | -7 | 10
+
+      /*
+      1 'breedGroups', //         5689
+      2 'Appearance', //          5013
+      3 'Description', //         4717
+      4 'Intro', //               4202
+      5 'Temperament', //         3287
+      6 'Activities', // *25      2621
+      7 'Care', // care           1685
+      8 'Coat', // coat           1362
+      9 'Health', //              717
+      10'Color', // color         641
+      11'Exercise', // exercise   631
+      12'Training', // training   556
+      13'History', //             479
+      14'Hunting', // hunting     360
+      15'Grooming', // grooming   284
+      16'Lifespan', // lifespan   271
+      17'Origins', // origin      205
+      18'Size', // size           143
+      19'Coat and color', // coatandcolor 45
+      */
     ];
 
     let slugAspects = [];

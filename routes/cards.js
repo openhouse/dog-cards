@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const url = require('url');
 const { log } = console;
+const sluggify = require('./helpers/slugify.js');
 
 const nano = require('nano')(process.env.DB_HOST);
 const heartDogsDb = nano.db.use(process.env.HEARTDOGS_DATABASE);
@@ -167,6 +168,7 @@ router.get('/', function (req, res, next) {
       };
     }
 
+    // generated breed triats must have 90% confidence or more
     if (breed.hasOwnProperty('genTraits')) {
       for (let trait in breed.genTraits.confidence.traits) {
         if (breed.genTraits.confidence.traits[trait] < 0.9) {
@@ -174,6 +176,89 @@ router.get('/', function (req, res, next) {
         }
       }
     }
+
+
+    // clean up hyphenated text
+    for (let section in breed.hyphenated) {
+      let sentences = [];
+      breed.hyphenated[section].forEach(function (sentence, index) {
+        // remove sentences that have deleted wiki tags
+        // indicated by double space
+        if (!sentence.text.includes('  ')) {
+          // indicated by space before period
+          if (!sentence.text.includes(' .')) {
+            // indicated by space before comma
+            if (!sentence.text.includes(' ,')) {
+              // remove parenthetical phrases
+              sentence.text = sentence.text.replace(/ *\([^)]*\) */g, ' ');
+              sentence.text = sentence.text.split(' .').join('.');
+              sentence.text = sentence.text.split(' ,').join(',');
+
+              // sentence.text = sentence.text.replace(/\s*\(.*?\)\s*/g, '');
+              sentences.push(sentence);
+            }
+          }
+        }
+      });
+
+      breed.hyphenated[section] = sentences;
+    };
+
+    let orderedSectionNames = [
+      'Intro',
+      'Temperament',
+      'Personality',
+      'Health and temperament',
+      'Training',
+      'Character and behavior',
+      'Behavior',
+      'Exercise',
+      'Characteristics',
+      'Common characteristics',
+      'About',
+      'Care',
+      'History and use',
+      'Description',
+      'Breed description',
+      'History',
+      'Activities',
+      'Hunting',
+      'Health',
+      'As pets',
+      'Appearance',
+      'Origins',
+      'History of the variety',
+    ];
+
+    let orderedSections = [];
+    let sectionNames = [];
+
+    orderedSectionNames.forEach(function (name, index) {
+      name = sluggify(name);
+
+      for (let section in breed.hyphenated) {
+        let slug = sluggify(section);
+        if (slug === name) {
+          let sectionObj = {
+            heading: section,
+            slug: slug,
+            lines: breed.hyphenated[section],
+          };
+          orderedSections.push(sectionObj);
+          sectionNames.push(section);
+
+        }
+      }
+    });
+
+    let allSectionNames = [];
+    for (let section in breed.hyphenated) {
+      allSectionNames.push(section);
+    }
+
+    breed.orderedSections = orderedSections;
+    breed.sectionNames = sectionNames;
+    breed.allSectionNames = allSectionNames;
 
     res.render('cards', {
       raw: body,

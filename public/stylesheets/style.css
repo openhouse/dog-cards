@@ -135,7 +135,7 @@ body {
     padding: 14px;
     height: calc(100% - 28px); }
   .card--back .content {
-    height: calc(100% - 21px);
+    height: calc(100% - 15.9775px);
     text-rendering: optimizeLegibility; }
   .card--back .img {
     position: absolute;
@@ -147,6 +147,8 @@ body {
     z-index: 1; }
   .card--back .name {
     font-family: 'Ideal Sans Black Pro';
+    font-family: 'Slackey', cursive;
+    font-family: 'Raleway', sans-serif;
     font-weight: normal;
     font-size: 17.11111px;
     line-height: 18.66667px;
@@ -193,6 +195,10 @@ body {
     z-index: 10;
     font-size: 12.44444px;
     line-height: 14px; }
+  .card--back .paragraphs .section {
+    padding-top: 14px; }
+    .card--back .paragraphs .section:first-of-type {
+      padding-top: 0; }
 
 .img {
   background-size: cover;

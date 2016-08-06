@@ -1,3 +1,4 @@
+let { log } = console;
 function resizePlaceholder(card) {
   let imgHeight = card.find('.img').height();
   let topHeight = card.find('.card-top').height();
@@ -55,14 +56,84 @@ function revealSentences(card) {
   }
 }
 
+function getSections(card) {
+  let domSections = card.find('.paragraphs').first().find('.section');
+  let sections = [];
+  domSections.each(function (index) {
+    let section = {
+      dom: domSections[index],
+      available: true,
+      visibleLines: 0,
+      lines: [],
+    };
+    let domLines = $(section.dom).find('.sentence');
+    domLines.each(function (lineIndex) {
+      let line = {
+        dom: domLines[lineIndex],
+        visible: false,
+        avaliable: true,
+      };
+      section.lines.push(line);
+    });
+
+    sections.push(section);
+  });
+
+  return sections;
+}
+
+function revealSectionSentences(card) {
+  let sections = getSections(card);
+
+  let working = true;
+  while (working) {
+    working = false;
+    activeSections = 0;
+    sections.forEach(function (section) {
+      if (section.available && (activeSections < 2)) {
+        section.active = true;
+        activeSections++;
+        $(section.dom).removeClass('hide');
+        if (section.lines.length > 0) {
+          let line = section.lines.shift();
+          $(line.dom).removeClass('hide');
+          section.visibleLines++;
+          if (!fits(card)) {
+            $(line.dom).addClass('hide');
+            section.visibleLines--;
+            section.available = false;
+            section.active = false;
+            activeSections--;
+          }
+        } else {
+          section.available = false;
+          section.active = false;
+          activeSections--;
+        }
+
+        if (section.visibleLines === 0) {
+          $(section.dom).addClass('hide');
+        }
+      }
+    });
+
+    if (activeSections > 0) {
+      working = true;
+    }
+
+  }
+
+  console.log(sections);
+}
+
 $(function () {
   let cardBacks = $('.card--back');
   $.each(cardBacks, function (key, value) {
     let card = $(value);
     resizePlaceholder(card);
-    revealSentences(card);
+    // revealSentences(card);
+    revealSectionSentences(card);
   });
 
-  console.log(cardBacks);
   console.log('ready!');
 });
