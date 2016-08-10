@@ -5,7 +5,9 @@ Order for importing
 - capture
 - dogtime
 - match stars
-- learn-traits
+- make-strict-tests
+- learn-traits-strict
+x learn-traits
 - gen-traits
 - wikidata
 - map

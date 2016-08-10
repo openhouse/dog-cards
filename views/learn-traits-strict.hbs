@@ -1,5 +1,21 @@
-<pre>cmbObjects: {{stringify cmbObjects 2}}</pre>
+{{#withFirst docs}}
+  <pre>{{stringify this.aspects 2}}</pre>
+  <pre>{{stringify this.allTraits 2}}</pre>
+
+{{/withFirst}}
+<pre>test: {{stringify test 2}}</pre>
+{{#unless done}}
+  <script>
+    window.location.assign('{{{meta.next}}}');
+  </script>
+{{else}}
+  <h1>Done!</h1>
+{{/unless}}
+
 {{!--
+{{#each docs as |doc|}}
+  <pre>{{stringify doc._id 2}}</pre>
+{{/each}}
 
 <table>
   {{#each aspects as |aspect|}}

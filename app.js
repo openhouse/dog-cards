@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var autoprefixer = require('express-autoprefixer');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -18,6 +19,8 @@ var wikidata = require('./routes/wikidata');
 var learnTraits = require('./routes/learn-traits');
 var genTraits = require('./routes/gen-traits');
 var intl = require('./routes/intl');
+var makeStrictTests = require('./routes/make-strict-tests');
+var learnTraitsStrict = require('./routes/learn-traits-strict');
 
 var app = express();
 app.use(require('connect-livereload')());
@@ -51,6 +54,10 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(autoprefixer({ browsers: 'last 2 versions', cascade: false }))
+    .use(express.static(path.join(__dirname, 'public')))
+    .listen(1337);
+
 // app.use('/', routes);
 app.use('/users', users);
 app.use('/breeds', breeds);
@@ -67,6 +74,8 @@ app.use('/wikidata', wikidata);
 app.use('/learn-traits', learnTraits);
 app.use('/gen-traits', genTraits);
 app.use('/intl', intl);
+app.use('/make-strict-tests', makeStrictTests);
+app.use('/learn-traits-strict', learnTraitsStrict);
 
 // app.use('/cards', cards);
 

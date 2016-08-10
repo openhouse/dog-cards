@@ -1,26 +1,26 @@
-let { log } = console;
+var log = console.log;
 function resizePlaceholder(card) {
-  let imgHeight = card.find('.img').height();
-  let topHeight = card.find('.card-top').height();
+  var imgHeight = card.find('.img').height();
+  var topHeight = card.find('.card-top').height();
   card.find('.card-bottom .placeholder').height(imgHeight - topHeight);
 }
 
 function fits(card) {
-  let outHeight = card.find('.content').first().height();
-  let inHeight = card.find('.content-inner').first().height();
+  var outHeight = card.find('.content').first().height();
+  var inHeight = card.find('.content-inner').first().height();
   return outHeight > inHeight;
 }
 
 function revealSentences(card) {
-  let adding = true;
-  let n = 0;
+  var adding = true;
+  var n = 0;
   while (adding) {
     n++;
     adding = false;
-    let hidden = null;
-    let added = 0;
-    let removed = 0;
-    let more = 0;
+    var hidden = null;
+    var added = 0;
+    var removed = 0;
+    var more = 0;
 
     hidden = card.find('.summary .sentence.hide').first();
     if (hidden.text().trim().length > 0) {
@@ -54,21 +54,23 @@ function revealSentences(card) {
       }
     }
   }
+
+  window.callPhantom('takeShot');
 }
 
 function getSections(card) {
-  let domSections = card.find('.paragraphs').first().find('.section');
-  let sections = [];
+  var domSections = card.find('.paragraphs').first().find('.section');
+  var sections = [];
   domSections.each(function (index) {
-    let section = {
+    var section = {
       dom: domSections[index],
       available: true,
       visibleLines: 0,
       lines: [],
     };
-    let domLines = $(section.dom).find('.sentence');
+    var domLines = $(section.dom).find('.sentence');
     domLines.each(function (lineIndex) {
-      let line = {
+      var line = {
         dom: domLines[lineIndex],
         visible: false,
         avaliable: true,
@@ -83,9 +85,9 @@ function getSections(card) {
 }
 
 function revealSectionSentences(card) {
-  let sections = getSections(card);
+  var sections = getSections(card);
 
-  let working = true;
+  var working = true;
   while (working) {
     working = false;
     activeSections = 0;
@@ -95,7 +97,7 @@ function revealSectionSentences(card) {
         activeSections++;
         $(section.dom).removeClass('hide');
         if (section.lines.length > 0) {
-          let line = section.lines.shift();
+          var line = section.lines.shift();
           $(line.dom).removeClass('hide');
           section.visibleLines++;
           if (!fits(card)) {
@@ -126,14 +128,20 @@ function revealSectionSentences(card) {
   console.log(sections);
 }
 
-$(function () {
-  let cardBacks = $('.card--back');
+function startUp() {
+  // $('body').css('background-color', 'red');
+  var cardBacks = $('.card--back');
   $.each(cardBacks, function (key, value) {
-    let card = $(value);
+    var card = $(value);
     resizePlaceholder(card);
     // revealSentences(card);
     revealSectionSentences(card);
   });
 
   console.log('ready!');
+}
+
+$(function () {
+  // $(window).load(function () {
+  startUp();
 });

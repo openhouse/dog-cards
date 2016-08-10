@@ -1,4 +1,5 @@
 require('dotenv').config();
+const Promise = require('bluebird');
 const express = require('express');
 const router = express.Router();
 const url = require('url');
@@ -13,10 +14,31 @@ const nano = require('nano')(process.env.DB_HOST);
 const dbUpdate = require('./helpers/db-update.js');
 const dogcardsDB = nano.db.use(process.env.DATABASE);
 dogcardsDB.update = dbUpdate;
-const traitTestsDB = nano.db.use(process.env.TRAIT_TESTS_DATABASE);
-traitTestsDB.update = dbUpdate;
+const strictTestsDB = nano.db.use(process.env.STRICT_TESTS_DATABASE);
+strictTestsDB.update = dbUpdate;
+strictTestsDB.updateAsync = function (obj, key, callback) {
+  let _this = this;
+  let db = _this;
+  return new Promise(function (resolve, reject) {
+    db.get(key, function (error, existing) {
+      if (!error) {
+        obj._rev = existing._rev;
+        obj.prefs = existing.prefs;
+      }
+
+      db.insert(obj, key, function (err, body) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(body);
+        }
+      });
+    });
+  });
+};
+
 var _ = require('lodash');
-const MIN_RELEVANT = 11;
+const MIN_RELEVANT = 10;
 /*
 use machine learning to classify traits
 */
@@ -328,24 +350,43 @@ router.get('/', function (req, res, next) {
     cmb.forEach(function (cmbAspects) {
       let cmbObject = {
         aspects: cmbAspects,
-        ids: getCmbIds(cmbAspects, aspects),
+        breeds: getCmbIds(cmbAspects, aspects),
       };
-      cmbObject.coverage = cmbObject.ids.length;
-      if (cmbObject.coverage >= MIN_RELEVANT) {
+      cmbObject.count = cmbObject.breeds.length;
+      cmbObject.id = cmbObject.aspects.sort().join('_');
+
+      if (cmbObject.count >= MIN_RELEVANT) {
         cmbObjects.push(cmbObject);
       }
     });
-
+    /*
     cmbObjects.sort(function (a, b) {
-      return b.coverage - a.coverage;
+      return b.count - a.count;
     });
 
-    res.render('learn-traits', {
+    res.render('make-strict-tests', {
       docs: docs,
       aspects: aspects,
       cmb: cmb,
       cmbObjects: cmbObjects,
     });
+    */
+    delete docs;
+    delete aspects;
+    delete cmb;
+    Promise.reduce(cmbObjects, function (total, cmbObject) {
+      return strictTestsDB.updateAsync(cmbObject, cmbObject.id)
+        .then(function (item) {
+          log('success', item.id);
+          return total++;
+        }).catch(function (reason) {
+          // rejection
+          log('problem', reason);
+        });
+    }, 0).then(function (total) {
+      log('promises done!', total);
+    });
+
     /*
     let allAspects = [
       'breedGroups', //         5516 | 0  |

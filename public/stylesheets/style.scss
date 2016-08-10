@@ -13,11 +13,50 @@
 	font-style: normal;
 }
 
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+	src: local('Material Icons'), local('MaterialIcons-Regular'), url('/fonts/material.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+       url(/fonts/material/MaterialIcons-Regular.woff) format('woff'),
+       url(/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
 
 
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
 }
 
 a {
@@ -66,8 +105,9 @@ pre {
 
 
 
-
 $ppi: 112;
+
+// $ppi: 600;
 
 @function in2px($in){
   @return $in * $ppi * 1px;
@@ -113,6 +153,7 @@ $nameShadowDist: in2px(1/300) * 1.414213562373095;
 body {
   background-color: $jp-white;
 }
+
 .breed {
   text-align: center;
 }
@@ -367,12 +408,18 @@ body {
 	width: $gridUnit * 36;
 	height: $gridUnit * 2.25;
 	overflow: hidden;
-
+	z-index: 1000;
+	// background-color: green;
 	.material-icons {
 		font-size: pt2px(8.5);
 		line-height: pt2px(9);
 		position: relative;
 		top: pt2px(1.25);
+
+		/*
+		width: 1.28571429em;
+    text-align: center;
+		*/
 	}
 }
 
@@ -410,11 +457,11 @@ body {
 	}
 		.chart-dot {
 			position: relative;
-			line-height: $gridUnit;
+			line-height: $gridUnit ;
 			font-size: $gridUnit * 0.61803398874985;
 			//left: $gridUnit / 2 + 1;
-			left: 0.75px;
-
+			// left: 0.75px;
+			left: 1px;
 		}
 
 }
@@ -471,8 +518,41 @@ body {
 
 
 
+body.print{
+		margin: 0;
+		padding: 0;
+		background: white;
+		.cards {
+			justify-content: initial;
+		}
+		.card {
+			margin: 0;
+			&.card--front.card--wide {
+				-webkit-transform: rotate(90deg);
+		    transform: rotate(90deg);
+				position: relative;
+				top: in2px(0.375);
+				right: in2px(0.625);
+			}
+		}
 
+		.bottom-stat{
+			/*
+			.dot-wrapper {
+				position: relative;
+				top: $gridUnit;
 
+			}
+			*/
+		}
+		.left-stat, .right-stat {
+
+		}
+		.chart-dot {
+			// position: relative;
+			line-height: $gridUnit * 3 !important;
+		}
+}
 
 
 

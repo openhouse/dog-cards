@@ -13,6 +13,36 @@
   font-weight: normal;
   font-style: normal; }
 
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url("/fonts/material.woff2") format("woff2"); }
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot);
+  /* For IE6-8 */
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url(/fonts/material/MaterialIcons-Regular.woff2) format("woff2"), url(/fonts/material/MaterialIcons-Regular.woff) format("woff"), url(/fonts/material/MaterialIcons-Regular.ttf) format("truetype"); }
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased; }
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
@@ -266,12 +296,17 @@ body {
   line-height: 14px;
   width: 252px;
   height: 15.75px;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: 1000; }
   .icons .material-icons {
     font-size: 13.22222px;
     line-height: 14px;
     position: relative;
-    top: 1.94444px; }
+    top: 1.94444px;
+    /*
+		width: 1.28571429em;
+    text-align: center;
+		*/ }
 
 .left-stat {
   left: 0; }
@@ -298,7 +333,7 @@ body {
     position: relative;
     line-height: 7px;
     font-size: 4.32624px;
-    left: 0.75px; }
+    left: 1px; }
 
 .bottom-stat {
   position: absolute;
@@ -327,6 +362,31 @@ body {
 
 .hide {
   display: none !important; }
+
+body.print {
+  margin: 0;
+  padding: 0;
+  background: white; }
+  body.print .cards {
+    justify-content: initial; }
+  body.print .card {
+    margin: 0; }
+    body.print .card.card--front.card--wide {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+      position: relative;
+      top: 42px;
+      right: 70px; }
+  body.print .bottom-stat {
+    /*
+			.dot-wrapper {
+				position: relative;
+				top: $gridUnit;
+
+			}
+			*/ }
+  body.print .chart-dot {
+    line-height: 21px !important; }
 
 /*
 */

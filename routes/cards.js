@@ -35,6 +35,21 @@ router.get('/', function (req, res, next) {
     page = 0;
   }
 
+  let print = urlParts.query.print;
+  let displayOptions = {
+    front: true,
+    back: true,
+    print: false,
+  };
+
+  if (print === 'front') {
+    displayOptions.back = false;
+    displayOptions.print = true;
+  } else if (print === 'back') {
+    displayOptions.front = false;
+    displayOptions.print = true;
+  }
+
   heartDogsDb.list({
     skip: page,
     limit: 1,
@@ -77,7 +92,6 @@ router.get('/', function (req, res, next) {
       });
     }
 
-
     // set rotate via query
     if (urlParts.query.rotate) {
       if (!breed.prefs.rotate) {
@@ -88,7 +102,6 @@ router.get('/', function (req, res, next) {
 
       isDirty = true;
     }
-
 
     // set image positioning via query
     if (urlParts.query.fpos) {
@@ -218,9 +231,9 @@ router.get('/', function (req, res, next) {
       'About',
       'Care',
       'History and use',
+      'History',
       'Description',
       'Breed description',
-      'History',
       'Activities',
       'Hunting',
       'Health',
@@ -260,9 +273,17 @@ router.get('/', function (req, res, next) {
     breed.sectionNames = sectionNames;
     breed.allSectionNames = allSectionNames;
 
+    let bodyClasses = '';
+    if (displayOptions.print) {
+      bodyClasses = 'print';
+    }
+
     res.render('cards', {
+      title: 'Heart Dogs',
+      bodyClasses: bodyClasses,
       raw: body,
-      breed: [breed],
+      breed: breed,
+      displayOptions: displayOptions,
       meta: {
         page: page,
         next: (page + 1),
